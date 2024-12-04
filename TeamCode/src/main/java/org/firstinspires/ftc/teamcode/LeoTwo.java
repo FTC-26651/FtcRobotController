@@ -72,6 +72,9 @@ public class LeoTwo extends Robot {
     public void extendArm(int inOrOut) {
         if (armMotorEx.getCurrentPosition() < 3000) {
             extensionMotor.setPower(inOrOut);
+        } else {
+            // Retract the arm to stay legal
+            extensionMotor.setPower(-1);
         }
     }
 
@@ -90,7 +93,7 @@ public class LeoTwo extends Robot {
             targetPosition = 5490;
             direction = 0;
         }
-
+        
         if (direction != 0) {
             armMotorEx.setVelocity(1000 * (direction));
             targetPosition = armMotorEx.getCurrentPosition();
