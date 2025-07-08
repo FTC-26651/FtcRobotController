@@ -3,10 +3,10 @@ package org.firstinspires.ftc.teamcode.robot.parts.drivetrains;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 public abstract class driveTrain {
-    protected LinearOpMode OpMode;
+    protected LinearOpMode linearOpMode;
 
     public driveTrain(LinearOpMode LOM) {
-        OpMode = LOM;
+        linearOpMode = LOM;
     }
 
     public abstract void init();
@@ -16,4 +16,7 @@ public abstract class driveTrain {
 
     public abstract void resetEncoders();
     public abstract int getEncoder(String name);
+
+    public abstract void setPower(double power);
+    public abstract double getPower();
 }

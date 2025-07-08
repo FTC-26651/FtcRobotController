@@ -23,11 +23,10 @@ import com.qualcomm.robotcore.util.Range;
 public class Mechanum extends driveTrain {
     double speed;
 
-    DcMotorEx exM;
-    DcMotorEx FLD;
-    DcMotorEx FRD;
-    DcMotorEx BLD;
-    DcMotorEx BRD;
+    DcMotorEx FLD = null;
+    DcMotorEx FRD = null;
+    DcMotorEx BLD = null;
+    DcMotorEx BRD = null;
 
     LionsDcMotorEx frontLeftDrive;
     LionsDcMotorEx frontRightDrive;
@@ -39,10 +38,10 @@ public class Mechanum extends driveTrain {
     }
 
     public void init() {
-        FLD = OpMode.hardwareMap.get(DcMotorEx.class, "left_front_drive");
-        FRD = OpMode.hardwareMap.get(DcMotorEx.class, "right_front_drive");
-        BLD = OpMode.hardwareMap.get(DcMotorEx.class, "left_back_drive");
-        BRD = OpMode.hardwareMap.get(DcMotorEx.class, "right_back_drive");
+        FLD = this.linearOpMode.hardwareMap.get(DcMotorEx.class, "left_front_drive");
+        FRD = this.linearOpMode.hardwareMap.get(DcMotorEx.class, "right_front_drive");
+        BLD = this.linearOpMode.hardwareMap.get(DcMotorEx.class, "left_back_drive");
+        BRD = this.linearOpMode.hardwareMap.get(DcMotorEx.class, "right_back_drive");
 
         frontLeftDrive = new LionsDcMotorEx(FLD);
         frontRightDrive = new LionsDcMotorEx(FRD);
@@ -74,6 +73,14 @@ public class Mechanum extends driveTrain {
         backRightDrive.setPid(0.05, 0.001, 0.001);
     }
 
+    public void setPower(double power) {
+        speed = power;
+    }
+
+    public double getPower() {
+        return speed;
+    }
+
     public void move(double x_axis, double y_axis, double tilt) {
         double leftBackPower = Range.clip(y_axis + x_axis + tilt, -1.0, 1.0);
         double rightBackPower = Range.clip(y_axis - x_axis - tilt, -1.0, 1.0);
@@ -93,7 +100,6 @@ public class Mechanum extends driveTrain {
         frontRightDrive.setPower(0);
     }
 
-
     public void resetEncoders() {
         frontLeftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -104,15 +110,16 @@ public class Mechanum extends driveTrain {
         backRightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
+
     public int getEncoder(String name) {
         switch(name) {
-            case "fld":
+            case "fl":
                 return frontLeftDrive.getCurrentPosition();
-            case "frd":
+            case "fr":
                 return frontRightDrive.getCurrentPosition();
-            case "bld":
+            case "bl":
                 return backLeftDrive.getCurrentPosition();
-            case "brd":
+            case "br":
                 return backRightDrive.getCurrentPosition();
             default:
                 return 0;
