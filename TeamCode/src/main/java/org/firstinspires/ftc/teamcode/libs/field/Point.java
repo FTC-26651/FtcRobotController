@@ -1,14 +1,12 @@
 package org.firstinspires.ftc.teamcode.libs.field;
 
-public class Coordinates {
-    double x;
-    double y;
+public class Point {
+    double x, y;
     double theta;
 
-    public Coordinates(double x_axis, double y_axis, double rotation) {
+    public Point(double x_axis, double y_axis) {
         x = x_axis;
         y = y_axis;
-        theta = rotation;
     }
 
     public double getX() {
@@ -17,7 +15,8 @@ public class Coordinates {
     public double getY() {
         return y;
     }
-    public double getTheta() {
-        return theta;
+
+    public double distance(Point other) {
+        return Math.hypot(this.x - other.x, this.y - other.y);
     }
 }
