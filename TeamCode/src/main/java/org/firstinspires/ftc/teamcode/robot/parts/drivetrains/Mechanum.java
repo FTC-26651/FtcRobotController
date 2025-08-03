@@ -113,13 +113,13 @@ public class Mechanum extends driveTrain {
 
     public int getEncoder(String name) {
         switch(name) {
-            case "fl":
+            case "front left":
                 return frontLeftDrive.getCurrentPosition();
-            case "fr":
+            case "front right":
                 return frontRightDrive.getCurrentPosition();
-            case "bl":
+            case "back left":
                 return backLeftDrive.getCurrentPosition();
-            case "br":
+            case "back right":
                 return backRightDrive.getCurrentPosition();
             default:
                 return 0;

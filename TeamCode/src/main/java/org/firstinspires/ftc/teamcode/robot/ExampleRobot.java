@@ -67,7 +67,4 @@ public class ExampleRobot extends Robot {
     }
 
 
-    public void runEveryLoop() {
-
-    }
 }
