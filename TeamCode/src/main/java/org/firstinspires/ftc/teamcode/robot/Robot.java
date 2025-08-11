@@ -4,11 +4,14 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.teamcode.robot.parts.drivetrains.driveTrain;
 
 public abstract class Robot {
     private char team;
     private String name;
     protected LinearOpMode linearOpMode;
+
+    public driveTrain driveTrain;
 
     // Constructor
     public Robot(LinearOpMode LOM) {

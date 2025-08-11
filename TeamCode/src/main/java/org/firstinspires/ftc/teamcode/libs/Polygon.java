@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.libs;
 
-import org.firstinspires.ftc.teamcode.libs.field.Point;
-
 import java.util.List;
 
 public class Polygon {

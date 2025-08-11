@@ -5,9 +5,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.robot.extensions.LionsDcMotorEx;
+import org.firstinspires.ftc.teamcode.libs.parts.extensions.LionsDcMotorEx;
 
 public class Tank extends driveTrain {
+    public String type = "Tank";
     double speed;
 
     DcMotorEx LD = null;

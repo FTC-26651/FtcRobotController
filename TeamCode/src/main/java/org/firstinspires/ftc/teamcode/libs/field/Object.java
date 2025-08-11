@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.libs.field;
 
+import org.firstinspires.ftc.teamcode.libs.Point;
 import org.firstinspires.ftc.teamcode.libs.Polygon;
 
 import java.util.HashSet;

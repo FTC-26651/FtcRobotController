@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.libs.pathfinder;
 
-import org.firstinspires.ftc.teamcode.libs.field.Point;
+import org.firstinspires.ftc.teamcode.libs.Point;
 
 public class Node {
     Point point;

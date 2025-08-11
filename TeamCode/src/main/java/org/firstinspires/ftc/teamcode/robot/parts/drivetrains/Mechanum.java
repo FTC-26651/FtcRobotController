@@ -1,26 +1,15 @@
 package org.firstinspires.ftc.teamcode.robot.parts.drivetrains;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.robot.extensions.LionsDcMotorEx;
+import org.firstinspires.ftc.teamcode.libs.parts.extensions.LionsDcMotorEx;
 
-import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DistanceSensor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 public class Mechanum extends driveTrain {
+    public String type = "Mechanum";
     double speed;
 
     DcMotorEx FLD = null;
@@ -124,5 +113,9 @@ public class Mechanum extends driveTrain {
             default:
                 return 0;
         }
+    }
+
+    public void turnTo(double target) {
+
     }
 }
