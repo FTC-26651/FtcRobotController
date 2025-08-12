@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.parts.drivetrains.driveTrain;
+import org.firstinspires.ftc.teamcode.robot.parts.location.location;
 
 public abstract class Robot {
     private char team;
@@ -12,6 +13,7 @@ public abstract class Robot {
     protected LinearOpMode linearOpMode;
 
     public driveTrain driveTrain;
+    public location location;
 
     // Constructor
     public Robot(LinearOpMode LOM) {

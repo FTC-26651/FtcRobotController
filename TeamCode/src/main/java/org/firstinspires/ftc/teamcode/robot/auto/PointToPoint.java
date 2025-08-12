@@ -12,9 +12,11 @@ public class PointToPoint {
         robot = r;
     }
 
-    public void move(Point current, Point taget) {
+    public void move(Point current, Point target) {
         if (robot.driveTrain.type.equals("Tank")) {
-            robot.driveTrain.turnTo(22);
+            double targetAngle = Math.atan(target.getY() - current.getY() / target.getX() - current.getX());
+
+            robot.driveTrain.turnTo(robot.location, targetAngle);
         }
     }
 }

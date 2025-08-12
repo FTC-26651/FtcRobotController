@@ -6,6 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.libs.parts.extensions.LionsDcMotorEx;
+import org.firstinspires.ftc.teamcode.libs.pidLib;
+import org.firstinspires.ftc.teamcode.robot.parts.location.location;
 
 public class Tank extends driveTrain {
     public String type = "Tank";
@@ -73,12 +75,24 @@ public class Tank extends driveTrain {
     
     public int getEncoder(String name) {
         switch(name) {
-            case "l":
+            case "left":
                 return leftDrive.getCurrentPosition();
-            case "r":
+            case "right":
                 return rightDrive.getCurrentPosition();
             default:
                 return 0;
+        }
+    }
+
+    public void turnTo(location location, double target) {
+        pidLib pid = new pidLib(1, 1, 1);
+
+        double power = pid.getPid(target, location.getRotation());
+        while(power > 0.1) {
+            leftDrive.setPower(power);
+            rightDrive.setPower(-1 * power);
+
+            power = pid.getPid(target, location.getRotation());
         }
     }
 }
