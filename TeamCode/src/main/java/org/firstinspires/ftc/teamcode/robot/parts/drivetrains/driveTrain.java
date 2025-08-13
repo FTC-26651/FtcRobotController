@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.robot.parts.drivetrains;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.robot.parts.location.location;
+import org.firstinspires.ftc.teamcode.robot.parts.location.GPS;
 
 public abstract class driveTrain {
     public String type;
@@ -17,7 +17,7 @@ public abstract class driveTrain {
     public abstract void move(double x_axis, double y_axis, double tilt);
     public abstract void stop();
 
-    public abstract void turnTo(location location, double target);
+    public abstract void turnTo(GPS location, double target);
 
     public abstract void resetEncoders();
     public abstract int getEncoder(String name);

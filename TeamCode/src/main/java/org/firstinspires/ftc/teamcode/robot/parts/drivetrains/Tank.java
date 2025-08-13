@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.libs.parts.extensions.LionsDcMotorEx;
 import org.firstinspires.ftc.teamcode.libs.pidLib;
-import org.firstinspires.ftc.teamcode.robot.parts.location.location;
+import org.firstinspires.ftc.teamcode.robot.parts.location.GPS;
 
 public class Tank extends driveTrain {
     public String type = "Tank";
@@ -84,7 +84,7 @@ public class Tank extends driveTrain {
         }
     }
 
-    public void turnTo(location location, double target) {
+    public void turnTo(GPS location, double target) {
         pidLib pid = new pidLib(1, 1, 1);
 
         double power = pid.getPid(target, location.getRotation());

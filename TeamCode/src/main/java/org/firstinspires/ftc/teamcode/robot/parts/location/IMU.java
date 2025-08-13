@@ -2,13 +2,12 @@ package org.firstinspires.ftc.teamcode.robot.parts.location;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.IMU;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
-public class imu {
-    IMU imu;
+public class IMU {
+    com.qualcomm.robotcore.hardware.IMU imu;
 
     private final LinearOpMode linearOpMode;
 
@@ -20,17 +19,17 @@ public class imu {
 
 
 
-    public imu(LinearOpMode LOM) {
+    public IMU(LinearOpMode LOM) {
         linearOpMode = LOM;
     }
 
     public void init() {
-        imu = this.linearOpMode.hardwareMap.get(IMU.class, "imu");
+        imu = this.linearOpMode.hardwareMap.get(com.qualcomm.robotcore.hardware.IMU.class, "imu");
 
         RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
         RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
-        imu.initialize(new IMU.Parameters(orientationOnRobot));
+        imu.initialize(new com.qualcomm.robotcore.hardware.IMU.Parameters(orientationOnRobot));
 
         orientation = imu.getRobotYawPitchRollAngles();
     }

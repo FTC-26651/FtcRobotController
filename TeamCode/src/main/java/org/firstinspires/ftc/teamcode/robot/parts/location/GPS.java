@@ -4,19 +4,19 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.libs.Point;
 
-public class location {
+public class GPS {
     private final LinearOpMode linearOpMode;
 
     double angle;
     Point location;
 
-    imu imu;
-    odo odo;
+    IMU imu;
+    ODO odo;
 
-    public location(LinearOpMode LOM) {
+    public GPS(LinearOpMode LOM) {
         linearOpMode = LOM;
-        imu = new imu(LOM);
-        odo = new odo(LOM);
+        imu = new IMU(LOM);
+        odo = new ODO(LOM);
     }
 
     public void init() {

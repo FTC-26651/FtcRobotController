@@ -1,11 +1,9 @@
 package org.firstinspires.ftc.teamcode.robot;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.robot.parts.drivetrains.driveTrain;
-import org.firstinspires.ftc.teamcode.robot.parts.location.location;
+import org.firstinspires.ftc.teamcode.robot.parts.location.GPS;
 
 public abstract class Robot {
     private char team;
@@ -13,7 +11,7 @@ public abstract class Robot {
     protected LinearOpMode linearOpMode;
 
     public driveTrain driveTrain;
-    public location location;
+    public GPS location;
 
     // Constructor
     public Robot(LinearOpMode LOM) {

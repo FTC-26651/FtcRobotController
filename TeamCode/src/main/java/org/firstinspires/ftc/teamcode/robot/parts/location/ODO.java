@@ -6,7 +6,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.libs.Point;
 import org.firstinspires.ftc.teamcode.libs.parts.GoBildaPinpointDriver;
 
-public class odo {
+public class ODO {
     GoBildaPinpointDriver odo;
 
     private final LinearOpMode linearOpMode;
@@ -19,7 +19,7 @@ public class odo {
 
 
 
-    public odo(LinearOpMode LOM) {
+    public ODO(LinearOpMode LOM) {
         linearOpMode = LOM;
     }
 
