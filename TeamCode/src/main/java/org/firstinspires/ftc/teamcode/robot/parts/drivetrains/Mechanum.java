@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.robot.parts.drivetrains;
 
+import org.firstinspires.ftc.teamcode.libs.Point;
 import org.firstinspires.ftc.teamcode.libs.parts.extensions.LionsDcMotorEx;
+import org.firstinspires.ftc.teamcode.robot.parts.location.GPS;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -115,7 +117,11 @@ public class Mechanum extends driveTrain {
         }
     }
 
-    public void turnTo(double target) {
+    public void turnTo(GPS location, double target) {
+
+    }
+
+    public void moveToPoint(GPS gps, Point target) {
 
     }
 }

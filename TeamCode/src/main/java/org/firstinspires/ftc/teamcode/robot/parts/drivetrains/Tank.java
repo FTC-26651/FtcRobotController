@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.teamcode.libs.Point;
 import org.firstinspires.ftc.teamcode.libs.parts.extensions.LionsDcMotorEx;
 import org.firstinspires.ftc.teamcode.libs.pidLib;
 import org.firstinspires.ftc.teamcode.robot.parts.location.GPS;
@@ -84,15 +85,29 @@ public class Tank extends driveTrain {
         }
     }
 
-    public void turnTo(GPS location, double target) {
+    public void turnTo(GPS gps, double target) {
         pidLib pid = new pidLib(1, 1, 1);
 
-        double power = pid.getPid(target, location.getRotation());
-        while(power > 0.1) {
-            leftDrive.setPower(power);
-            rightDrive.setPower(-1 * power);
+        double power = pid.getPid(target, gps.getRotation());
 
-            power = pid.getPid(target, location.getRotation());
-        }
+        leftDrive.setPower(power);
+        rightDrive.setPower(-1 * power);
+    }
+
+    public void moveToPoint(GPS gps, Point target) {
+        double targetAngle = Math.atan(target.getY() - gps.getLocation().getY() / target.getX() - gps.getLocation().getX());
+        turnTo(gps, targetAngle);
+
+
+        pidLib pid = new pidLib(1, 1, 1);
+        double dist = Math.sqrt(
+                Math.pow(target.getY() - gps.getLocation().getY(), 2) +
+                Math.pow(target.getX() - gps.getLocation().getX(), 2)
+        );
+
+        double power = pid.getPid(dist);
+            
+        leftDrive.setPower(power);
+        rightDrive.setPower(power);
     }
 }

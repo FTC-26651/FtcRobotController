@@ -15,16 +15,17 @@ import org.firstinspires.ftc.teamcode.robot.parts.drivetrains.Mechanum;
 import org.firstinspires.ftc.teamcode.robot.parts.drivetrains.Telemetric;
 import org.firstinspires.ftc.teamcode.robot.parts.location.GPS;
 
-public class ExampleRobot extends Robot {
+public class DevModeRobot extends Robot {
     LionsDcMotorEx armMotorEx   = null;
     LionsDcMotorEx extensionMotor = null;
 
-    public Mechanum driveTrain;
+    public Telemetric driveTrain;
     public GPS location;
 
-    public ExampleRobot(LinearOpMode LOM) {
+    public DevModeRobot(LinearOpMode LOM) {
         super(LOM);
-        driveTrain = new Mechanum(linearOpMode);
+
+        driveTrain = new Telemetric(linearOpMode);
         location = new GPS(linearOpMode);
     }
 

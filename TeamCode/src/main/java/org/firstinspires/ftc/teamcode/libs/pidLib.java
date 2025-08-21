@@ -61,4 +61,22 @@ public class pidLib {
 
         return out;
     }
+
+    public double getPid(double e) {
+        error = e;
+        integralSum = integralSum + (error * timer.seconds());
+        derivative = (error - lastError) / timer.seconds();
+
+        out = (p * error) + (i * integralSum) + (d * derivative);
+
+        lastError = error;
+
+        timer.reset();
+
+        return out;
+    }
+
+    public double getError() {
+        return error;
+    }
 }
