@@ -61,7 +61,7 @@ public class Telemetric extends driveTrain {
     }
 
     public void turnTo(GPS gps, double target) {
-        pidLib pid = new pidLib(1, 1, 1);
+        pidLib pid = new pidLib(0.025, 0.001, 0.001);
 
         double power = pid.getPid(target, gps.getRotation());
 
@@ -70,19 +70,22 @@ public class Telemetric extends driveTrain {
     }
 
     public void moveToPoint(GPS gps, Point target) {
-        double targetAngle = Math.atan(target.getY() - gps.getLocation().getY() / target.getX() - gps.getLocation().getX());
-        turnTo(gps, targetAngle);
+        double targetAngle = Math.toDegrees(Math.atan2(target.getY() - gps.getLocation().getY(), target.getX() - gps.getLocation().getX()));
+        linearOpMode.telemetry.addData("Targ angle: ", targetAngle);
+        linearOpMode.telemetry.addData("angle: ", gps.getRotation());
+        if (Math.abs(gps.getRotation() - targetAngle) > 5) {
+            turnTo(gps, targetAngle);
+        } else {
+            pidLib pid = new pidLib(0.025, 0.001, 0.001);
+            double dist = Math.sqrt(
+                    Math.pow(target.getY() - gps.getLocation().getY(), 2) +
+                    Math.pow(target.getX() - gps.getLocation().getX(), 2)
+            );
 
+            double power = pid.getPid(dist);
 
-        pidLib pid = new pidLib(1, 1, 1);
-        double dist = Math.sqrt(
-                Math.pow(target.getY() - gps.getLocation().getY(), 2) +
-                Math.pow(target.getX() - gps.getLocation().getX(), 2)
-        );
-
-        double power = pid.getPid(dist);
-
-        linearOpMode.telemetry.addData("LeftPower: ", power);
-        linearOpMode.telemetry.addData("RightPower: ", power);
+            linearOpMode.telemetry.addData("LeftPower: ", power);
+            linearOpMode.telemetry.addData("RightPower: ", power);
+        }
     }
 }

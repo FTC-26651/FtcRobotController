@@ -28,17 +28,8 @@ public class AutoTest extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            telemetry.addData("Target X", target.getX());
-            telemetry.addData("Target Y", target.getY());
-
             nextMove = Pathfinder.getNextMove(target, robot.location.getLocation());
             robot.driveTrain.moveToPoint(robot.location, nextMove);
-
-            telemetry.addData("NextMove X", nextMove.getX());
-            telemetry.addData("NextMove Y", nextMove.getY());
-
-            telemetry.addData("location X", robot.location.getLocation().getX());
-            telemetry.addData("location Y", robot.location.getLocation().getY());
 
             telemetry.update();
         }

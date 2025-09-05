@@ -47,6 +47,8 @@ public class ODO {
     }
 
     public Point getPos() {
+        odo.update();
+
         return new Point(
                 startPoint.getX() + odo.getPosX(DistanceUnit.INCH),
                 startPoint.getY() + odo.getPosY(DistanceUnit.INCH)

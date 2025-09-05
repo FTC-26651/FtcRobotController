@@ -34,6 +34,11 @@ public class IMU {
         orientation = imu.getRobotYawPitchRollAngles();
     }
 
+    public double getYaw() {
+        orientation = imu.getRobotYawPitchRollAngles();
+        return orientation.getYaw(AngleUnit.DEGREES);
+    }
+
     public void resetYaw() {
         imu.resetYaw();
     }
@@ -42,10 +47,6 @@ public class IMU {
         return accuracy;
     }
 
-    public double getYaw() {
-        orientation = imu.getRobotYawPitchRollAngles();
-        return orientation.getYaw(AngleUnit.DEGREES);
-    }
     public double getPitch() {
         orientation = imu.getRobotYawPitchRollAngles();
         return orientation.getPitch(AngleUnit.DEGREES);
