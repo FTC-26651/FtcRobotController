@@ -20,13 +20,13 @@ public class DevModeRobot extends Robot {
     LionsDcMotorEx extensionMotor = null;
 
     public Telemetric driveTrain;
-    public GPS location;
+    public GPS gps;
 
     public DevModeRobot(LinearOpMode LOM) {
         super(LOM);
 
         driveTrain = new Telemetric(linearOpMode);
-        location = new GPS(linearOpMode);
+        gps = new GPS(linearOpMode);
     }
 
     public void initRobotEncoders() {
@@ -37,6 +37,6 @@ public class DevModeRobot extends Robot {
     }
     public void initRobot() {
         driveTrain.init();
-        location.init();
+        gps.init();
     }
 }

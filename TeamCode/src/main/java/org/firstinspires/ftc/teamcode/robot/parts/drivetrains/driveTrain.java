@@ -20,7 +20,7 @@ public abstract class driveTrain {
     public abstract void move(double x_axis, double y_axis, double tilt);
     public abstract void stop();
 
-    public abstract void turnTo(GPS location, double target);
+    public abstract void turnTo(GPS gps, double target);
     public abstract void moveToPoint(GPS gps, Point target);
 
     public abstract void resetEncoders();

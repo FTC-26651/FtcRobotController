@@ -28,8 +28,18 @@ public class AutoTest extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
-            nextMove = Pathfinder.getNextMove(target, robot.location.getLocation());
-            robot.driveTrain.moveToPoint(robot.location, nextMove);
+            nextMove = Pathfinder.getNextMove(target, robot.gps.getLocation());
+
+            double targetAngle = Math.toDegrees(Math.atan2(target.getY() - robot.gps.getLocation().getY(), target.getX() - robot.gps.getLocation().getX()));
+
+            if (Math.abs(robot.gps.getRotation() - targetAngle) > 5) {
+                robot.driveTrain.turnTo(robot.gps, targetAngle);
+            } else {
+                robot.driveTrain.moveToPoint(robot.gps, nextMove);
+            }
+
+            telemetry.addData("Current X: ", robot.gps.getLocation().getX());
+            telemetry.addData("Current Y: ", robot.gps.getLocation().getY());
 
             telemetry.update();
         }

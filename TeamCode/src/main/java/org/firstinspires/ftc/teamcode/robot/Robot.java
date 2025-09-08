@@ -11,7 +11,7 @@ public abstract class Robot {
     protected LinearOpMode linearOpMode;
 
     public driveTrain driveTrain;
-    public GPS location;
+    public GPS gps;
 
     // Constructor
     public Robot(LinearOpMode LOM) {

@@ -20,12 +20,12 @@ public class ExampleRobot extends Robot {
     LionsDcMotorEx extensionMotor = null;
 
     public Mechanum driveTrain;
-    public GPS location;
+    public GPS gps;
 
     public ExampleRobot(LinearOpMode LOM) {
         super(LOM);
         driveTrain = new Mechanum(linearOpMode);
-        location = new GPS(linearOpMode);
+        gps = new GPS(linearOpMode);
     }
 
     public void initRobotEncoders() {
@@ -36,6 +36,6 @@ public class ExampleRobot extends Robot {
     }
     public void initRobot() {
         driveTrain.init();
-        location.init();
+        gps.init();
     }
 }
