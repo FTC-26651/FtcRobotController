@@ -41,7 +41,7 @@ import com.qualcomm.robotcore.hardware.VoltageSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.core.Drawing;
-import org.firstinspires.ftc.teamcode.core.Localizer;
+import org.firstinspires.ftc.teamcode.core.robot.sensors.localizer.Localizer;
 import org.firstinspires.ftc.teamcode.core.messages.DriveCommandMessage;
 import org.firstinspires.ftc.teamcode.core.messages.MecanumCommandMessage;
 import org.firstinspires.ftc.teamcode.core.messages.MecanumLocalizerInputsMessage;
