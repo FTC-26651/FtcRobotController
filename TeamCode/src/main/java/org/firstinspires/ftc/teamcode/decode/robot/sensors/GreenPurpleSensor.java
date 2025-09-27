@@ -11,13 +11,13 @@ public class GreenPurpleSensor extends ColorSensor {
 
     public final ColorRange ARTIFACT_GREEN = new ColorRange(
             "ARTIFACT_GREEN",
-            new double[] {30, 50, 118},
-            new double[] {255, 105, 145}
+            new double[] {0.0006, 0.0015, 0.0011},
+            new double[] {0.0035, 0.025, 0.016}
     );
     public final ColorRange ARTIFACT_PURPLE = new ColorRange(
             "ARTIFACT_PURPLE",
-            new double[] {32, 135, 135},
-            new double[] {255, 155, 169}
+            new double[] {0.0011, 0.0013, 0.0011},
+            new double[] {0.01, 0.0025, 0.025}
     );
 
     public GreenPurpleSensor(HardwareMap hardwareMap, String name) {
@@ -30,10 +30,10 @@ public class GreenPurpleSensor extends ColorSensor {
         NormalizedRGBA colors = super.getRGB();
         double[] color = {colors.red, colors.green, colors.blue};
 
-        if (ARTIFACT_GREEN.inRange(color)) {
-            return "Green";
-        } else if (ARTIFACT_PURPLE.inRange(color)) {
+        if (ARTIFACT_PURPLE.inRange(color)) {
             return "Purple";
+        } else if (ARTIFACT_GREEN.inRange(color)) {
+            return "Green";
         }
         return "";
     }

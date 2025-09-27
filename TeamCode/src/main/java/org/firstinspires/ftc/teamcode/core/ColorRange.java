@@ -13,7 +13,7 @@ public class ColorRange {
 
     public boolean inRange(double[] color) {
         for (int i = 0; i < color.length; i++) {
-            if ((color[i] < min[i]) || (color[i] > max[i])) {
+            if ((color[i] <= min[i]) || (color[i] >= max[i])) {
                 return false;
             }
         }
