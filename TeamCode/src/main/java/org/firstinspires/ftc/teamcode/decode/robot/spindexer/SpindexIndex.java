@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.decode.robot.spindexer;
 
-public class index {
+public class SpindexIndex {
     private static final int INDEX_SIZE = 3;
     private static final String[] INDEX = new String[INDEX_SIZE];
 
