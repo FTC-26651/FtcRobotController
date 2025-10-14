@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.robot;
+package org.firstinspires.ftc.teamcode.core.robot.flywheels;
 
 import dev.nextftc.control.ControlSystem;
 import dev.nextftc.core.commands.Command;
@@ -6,9 +6,9 @@ import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.hardware.controllable.RunToVelocity;
 import dev.nextftc.hardware.impl.MotorEx;
 
-public class flywheel implements Subsystem {
-    public static final flywheel INSTANCE = new flywheel();
-    private flywheel() { }
+public class singleFlywheel implements Subsystem {
+    public static final singleFlywheel INSTANCE = new singleFlywheel();
+    private singleFlywheel() { }
 
     private final MotorEx motor = new MotorEx("flywheel_motor");
 

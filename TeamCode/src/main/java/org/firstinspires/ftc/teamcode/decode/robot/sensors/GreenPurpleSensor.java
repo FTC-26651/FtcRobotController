@@ -6,7 +6,6 @@ import org.firstinspires.ftc.teamcode.core.ColorRange;
 import org.firstinspires.ftc.teamcode.core.robot.sensors.ColorSensor;
 
 public class GreenPurpleSensor extends ColorSensor {
-
     public final ColorRange ARTIFACT_GREEN = new ColorRange(
             "ARTIFACT_GREEN",
             new double[] {0.0006, 0.0015, 0.0011},
