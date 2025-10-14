@@ -1,41 +1,51 @@
 package org.firstinspires.ftc.teamcode.decode.robot.spindexer;
 
-import androidx.annotation.NonNull;
+import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.utility.InstantCommand;
+import dev.nextftc.core.subsystems.Subsystem;
+import dev.nextftc.core.units.Angle;
+import dev.nextftc.hardware.impl.ServoEx;
 
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.acmerobotics.roadrunner.Action;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
+public class Spindexer implements Subsystem {
+    public static final Spindexer INSTANCE = new Spindexer();
 
-public class Spindexer {
-    private final Servo spindexMotor;
-    private final double pos = 0;
+    Angle thirdCircle = Angle.fromRev(1 / 3);
+    private final ServoEx spindexMotor = new ServoEx("claw_servo");
 
-    public Spindexer(HardwareMap hardwareMap) {
-        spindexMotor = hardwareMap.get(Servo.class, "spindex");
+    private static final int INDEX_SIZE = 3;
+    private static final String[] INDEX = new String[INDEX_SIZE];
+
+    private Spindexer() { }
+
+    public Command rotateLeft = new InstantCommand(() -> {
+        spindexMotor.setPosition(spindexMotor.getPosition() + thirdCircle.inRev);
+        String[] tempIndex = INDEX;
+
+        INDEX[0] = tempIndex[2];
+        INDEX[1] = tempIndex[0];
+        INDEX[2] = tempIndex[1];
+    });
+
+
+    public Command rotateRight = new InstantCommand(() -> {
+            spindexMotor.setPosition(spindexMotor.getPosition() - thirdCircle.inRev);
+            String[] tempIndex = INDEX;
+
+            INDEX[0] = tempIndex[1];
+            INDEX[1] = tempIndex[2];
+            INDEX[2] = tempIndex[0];
+    });
+
+
+    public Command addOrb(int pos, String color) {
+        return new InstantCommand(() -> INDEX[pos] = color);
     }
 
-    public class RotateLeft implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            spindexMotor.setPosition(spindexMotor.getPosition() + pos); // Position TBD
-            SpindexIndex.rotateLeft();
-            return false;
-        }
-    }
-    public Action rotateLeft() {
-        return new RotateLeft();
+    public Command removeOrb(int pos) {
+        return new InstantCommand(() -> INDEX[pos] = "");
     }
 
-    public class RotateRight implements Action {
-        @Override
-        public boolean run(@NonNull TelemetryPacket packet) {
-            spindexMotor.setPosition(spindexMotor.getPosition() - pos); // Position TBD
-            SpindexIndex.rotateRight();
-            return false;
-        }
-    }
-    public Action rotateRight() {
-        return new RotateRight();
+    public String getOrbColor(int pos) {
+        return INDEX[pos];
     }
 }
