@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.decode.robot.sensors;
 
-import com.qualcomm.hardware.rev.RevColorSensorV3;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.teamcode.core.ColorRange;
@@ -20,8 +18,8 @@ public class GreenPurpleSensor extends ColorSensor {
             new double[] {0.01, 0.0025, 0.025}
     );
 
-    public GreenPurpleSensor(HardwareMap hardwareMap, String name) {
-        super(hardwareMap, name);
+    public GreenPurpleSensor(String name) {
+        super(name);
     }
 
     public String getColor() {

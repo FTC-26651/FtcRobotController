@@ -16,7 +16,7 @@ public class colorTest extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        sensor = new GreenPurpleSensor(hardwareMap, "color");
+        sensor = new GreenPurpleSensor("color");
 
         telemetry.addLine("Test Ready.");
         telemetry.update();
