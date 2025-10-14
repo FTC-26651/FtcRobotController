@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.decode.robot.spindexer;
+package org.firstinspires.ftc.teamcode.decode.robot;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.utility.InstantCommand;

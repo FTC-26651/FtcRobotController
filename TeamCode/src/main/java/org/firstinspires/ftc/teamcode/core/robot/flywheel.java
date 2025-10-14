@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.decode.robot;
+package org.firstinspires.ftc.teamcode.core.robot;
 
 import dev.nextftc.control.ControlSystem;
 import dev.nextftc.core.commands.Command;
