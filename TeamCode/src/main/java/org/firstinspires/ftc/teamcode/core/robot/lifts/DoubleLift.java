@@ -6,11 +6,12 @@ import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.hardware.controllable.RunToPosition;
 import dev.nextftc.hardware.impl.MotorEx;
 
-public class singleLift implements Subsystem {
-    public static final singleLift INSTANCE = new singleLift();
-    private singleLift() { }
+public class DoubleLift implements Subsystem {
+    public static final DoubleLift INSTANCE = new DoubleLift();
+    private DoubleLift() { }
 
-    private final MotorEx motor = new MotorEx("lift_motor");
+    private final MotorEx right_motor = new MotorEx("right_lift_motor");
+    private final MotorEx left_motor = new MotorEx("left_lift_motor");
 
     private final ControlSystem controlSystem = ControlSystem.builder()
             .posPid(0.005, 0, 0)
@@ -23,6 +24,7 @@ public class singleLift implements Subsystem {
 
     @Override
     public void periodic() {
-        motor.setPower(controlSystem.calculate(motor.getState()));
+        right_motor.setPower(controlSystem.calculate(right_motor.getState()));
+        left_motor.setPower(controlSystem.calculate(left_motor.getState()));
     }
 }

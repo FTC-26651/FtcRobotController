@@ -3,13 +3,11 @@ package org.firstinspires.ftc.teamcode.decode;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
 @TeleOp(name = "Odo Test", group = "Robot")
-public class odoTest extends LinearOpMode {
+public class OdoTest extends LinearOpMode {
     GoBildaPinpointDriver odo;
 
     @Override

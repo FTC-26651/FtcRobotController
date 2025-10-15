@@ -9,7 +9,7 @@ import dev.nextftc.core.commands.Command;
 import dev.nextftc.ftc.NextFTCOpMode;
 
 @Autonomous(name = "Spline Test", group = "Robot")
-public class splineTest extends NextFTCOpMode {
+public class SplineTest extends NextFTCOpMode {
     private final Pose2d startPose = new Pose2d(9.0, 111.0, Math.toRadians(-90.0));
     private final Pose2d scorePose = new Pose2d(16.0, 128.0, Math.toRadians(-45.0));
 

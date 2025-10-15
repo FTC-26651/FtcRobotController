@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.decode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name = "Lift Test", group = "Robot")
-public class liftTest extends LinearOpMode {
+public class LiftTest extends LinearOpMode {
     DcMotorEx left;
     DcMotorEx right;
 

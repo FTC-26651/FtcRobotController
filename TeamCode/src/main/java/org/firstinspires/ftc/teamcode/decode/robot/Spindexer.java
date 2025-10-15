@@ -35,12 +35,12 @@ public class Spindexer implements Subsystem {
         INDEX[2] = tempIndex[1];
     });
     public Command rotateRight = new InstantCommand(() -> {
-            spindexMotor.setPosition(spindexMotor.getPosition() - PARAMS.thirdCircle.inRev);
-            String[] tempIndex = INDEX;
+        spindexMotor.setPosition(spindexMotor.getPosition() - PARAMS.thirdCircle.inRev);
+        String[] tempIndex = INDEX;
 
-            INDEX[0] = tempIndex[1];
-            INDEX[1] = tempIndex[2];
-            INDEX[2] = tempIndex[0];
+        INDEX[0] = tempIndex[1];
+        INDEX[1] = tempIndex[2];
+        INDEX[2] = tempIndex[0];
     });
 
     public Command addOrb(String color) {

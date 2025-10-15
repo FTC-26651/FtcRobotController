@@ -6,11 +6,12 @@ import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.hardware.controllable.RunToVelocity;
 import dev.nextftc.hardware.impl.MotorEx;
 
-public class singleFlywheel implements Subsystem {
-    public static final singleFlywheel INSTANCE = new singleFlywheel();
-    private singleFlywheel() { }
+public class DoubleFlywheel implements Subsystem {
+    public static final DoubleFlywheel INSTANCE = new DoubleFlywheel();
+    private DoubleFlywheel() { }
 
-    private final MotorEx motor = new MotorEx("flywheel_motor");
+    private final MotorEx rightMotor = new MotorEx("right_flywheel_motor");
+    private final MotorEx leftMotor = new MotorEx("left_flywheel_motor");
 
     private final ControlSystem controller = ControlSystem.builder()
             .velPid(0.005, 0, 0)
@@ -22,6 +23,7 @@ public class singleFlywheel implements Subsystem {
 
     @Override
     public void periodic() {
-        motor.setPower(controller.calculate(motor.getState()));
+        rightMotor.setPower(controller.calculate(rightMotor.getState()));
+        leftMotor.setPower(controller.calculate(leftMotor.getState()));
     }
 }
