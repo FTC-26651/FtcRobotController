@@ -8,27 +8,34 @@ import dev.nextftc.hardware.impl.ServoEx;
 
 public class Spindexer implements Subsystem {
     public static final Spindexer INSTANCE = new Spindexer();
-
-    Angle thirdCircle = Angle.fromRev(1 / 3);
-    private final ServoEx spindexMotor = new ServoEx("claw_servo");
-
-    private static final int INDEX_SIZE = 3;
-    private static final String[] INDEX = new String[INDEX_SIZE];
-
     private Spindexer() { }
 
+    public static class Params {
+        private final Angle thirdCircle = Angle.fromRev(1 / 3);
+
+        private final int INDEX_SIZE = 3;
+
+        private final int inputLocation = 0;
+        private final int outputLocation = 0;
+
+        private final String name = "spindex_servo";
+    }
+
+    public Spindexer.Params PARAMS = new Spindexer.Params();
+
+    private final ServoEx spindexMotor = new ServoEx(PARAMS.name);
+    private final String[] INDEX = new String[PARAMS.INDEX_SIZE];
+
     public Command rotateLeft = new InstantCommand(() -> {
-        spindexMotor.setPosition(spindexMotor.getPosition() + thirdCircle.inRev);
+        spindexMotor.setPosition(spindexMotor.getPosition() + PARAMS.thirdCircle.inRev);
         String[] tempIndex = INDEX;
 
         INDEX[0] = tempIndex[2];
         INDEX[1] = tempIndex[0];
         INDEX[2] = tempIndex[1];
     });
-
-
     public Command rotateRight = new InstantCommand(() -> {
-            spindexMotor.setPosition(spindexMotor.getPosition() - thirdCircle.inRev);
+            spindexMotor.setPosition(spindexMotor.getPosition() - PARAMS.thirdCircle.inRev);
             String[] tempIndex = INDEX;
 
             INDEX[0] = tempIndex[1];
@@ -36,13 +43,11 @@ public class Spindexer implements Subsystem {
             INDEX[2] = tempIndex[0];
     });
 
-
-    public Command addOrb(int pos, String color) {
-        return new InstantCommand(() -> INDEX[pos] = color);
+    public Command addOrb(String color) {
+        return new InstantCommand(() -> INDEX[PARAMS.inputLocation] = color);
     }
-
-    public Command removeOrb(int pos) {
-        return new InstantCommand(() -> INDEX[pos] = "");
+    public Command removeOrb() {
+        return new InstantCommand(() -> INDEX[PARAMS.outputLocation] = "");
     }
 
     public String getOrbColor(int pos) {
