@@ -21,8 +21,10 @@ public class SplineTest extends NextFTCOpMode {
         drive = new MecanumDrive(hardwareMap, startPose);
 
         driveCommand = drive.commandBuilder(startPose)
-                .splineTo(scorePose.position, scorePose.heading)
+                .splineToLinearHeading(scorePose, Math.PI / 2)
                 .build();
+
+        // 2.splineTo(scorePose.position, scorePose.heading)
     }
 
     @Override

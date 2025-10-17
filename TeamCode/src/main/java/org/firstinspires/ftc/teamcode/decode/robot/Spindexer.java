@@ -53,4 +53,13 @@ public class Spindexer implements Subsystem {
     public String getOrbColor(int pos) {
         return INDEX[pos];
     }
+
+    public boolean isFull() {
+        for (String color : INDEX) {
+            if (color.isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
