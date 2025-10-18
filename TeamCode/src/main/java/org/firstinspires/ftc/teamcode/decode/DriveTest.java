@@ -21,7 +21,7 @@ public class DriveTest extends LinearOpMode {
         drive.leftBack.setPower(leftBackPower);
         drive.rightBack.setPower(rightBackPower);
         drive.leftFront.setPower(leftFrontPower);
-        drive.rightBack.setPower(rightFrontPower);
+        drive.rightFront.setPower(rightFrontPower);
     }
 
     @Override
