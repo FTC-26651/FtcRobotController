@@ -1,28 +1,41 @@
 package org.firstinspires.ftc.teamcode.decode;
 
-import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import java.math.*;
 
 @TeleOp(name = "Light Test", group = "Robot")
 public class LightTest extends LinearOpMode {
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+
     Servo LED;
-    RevBlinkinLedDriver blink;
+    ElapsedTime timer = new ElapsedTime();
 
     @Override
     public void runOpMode() throws InterruptedException {
         LED = hardwareMap.get(Servo.class, "LED");
-        blink = hardwareMap.get(RevBlinkinLedDriver.class, "blink");
 
         telemetry.addLine("Test Ready.");
         telemetry.update();
 
         waitForStart();
 
+        timer.reset();
+
         while (opModeIsActive()) {
-            LED.setPosition(0.277);
-            blink.setPattern(RevBlinkinLedDriver.BlinkinPattern.BLUE);
+            LED.setPosition(round(timer.seconds() / 10, 2));
+            if (timer.seconds() >= 10) {
+                timer.reset();
+            }
         }
     }
 }
