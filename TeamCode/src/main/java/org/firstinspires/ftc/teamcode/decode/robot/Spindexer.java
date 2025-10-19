@@ -6,8 +6,7 @@ import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.core.units.Angle;
 import dev.nextftc.hardware.impl.ServoEx;
 
-// When I was writing this, only I and God knew what this does. Now only God knows what it does
-// Jk it's not that bad, but it is the most complicated thing I've written so far
+// The spindexer class assumes that spindexer index counts upwards, counter clockwise.
 public class Spindexer implements Subsystem {
     public static final Spindexer INSTANCE = new Spindexer();
     private Spindexer() { }
@@ -18,6 +17,7 @@ public class Spindexer implements Subsystem {
         private final int INDEX_SIZE = 3;
         private final int PATTERN_SIZE = 3;
 
+        // TODO: Adjust these values based off of what the robot will be.
         private final int inputLocation = 0;
         private final int outputLocation = 0;
 
@@ -32,6 +32,8 @@ public class Spindexer implements Subsystem {
     private String[] PATTERN = new String[PARAMS.PATTERN_SIZE];
     private int patternIncrement = 0;
 
+    private boolean indexing = false;
+
     private int getIndexOf(String color) {
         for (int i = 0;  i < PARAMS.INDEX_SIZE; i++) {
             if (color.equals(INDEX[i])) {
@@ -43,19 +45,30 @@ public class Spindexer implements Subsystem {
 
     private String getOrbToShoot() {
         patternIncrement++;
+        if (patternIncrement > PARAMS.PATTERN_SIZE) {
+            patternIncrement = 0;
+        }
         return PATTERN[patternIncrement];
     }
 
     private void setOrbToShoot(String color) {
         int indexOfColor = getIndexOf(color);
-        while (indexOfColor != PARAMS.outputLocation) {
-            if (indexOfColor > PARAMS.outputLocation) {
+
+        if (indexOfColor == -1) {
+            return;
+        }
+
+        if (indexOfColor != PARAMS.outputLocation) {
+            int rightDistance = (PARAMS.outputLocation - indexOfColor + PARAMS.INDEX_SIZE) % PARAMS.INDEX_SIZE;
+            int leftDistance = (indexOfColor - PARAMS.outputLocation + PARAMS.INDEX_SIZE) % PARAMS.INDEX_SIZE;
+
+            if (rightDistance <= leftDistance && rightDistance != 0) {
+                INSTANCE.rotateRight.schedule();
+            } else if (leftDistance < rightDistance && leftDistance != 0) {
                 INSTANCE.rotateLeft.schedule();
             }
-            if (indexOfColor < PARAMS.outputLocation) {
-                INSTANCE.rotateRight.schedule();
-            }
-            indexOfColor = getIndexOf(color);
+        } else {
+            indexing = false;
         }
     }
 
@@ -101,6 +114,13 @@ public class Spindexer implements Subsystem {
     }
 
     public Command index = new InstantCommand(() -> {
-        setOrbToShoot(getOrbToShoot());
+        indexing = true;
     });
+
+    @Override
+    public void periodic() {
+        if (indexing) {
+            setOrbToShoot(getOrbToShoot());
+        }
+    }
 }
