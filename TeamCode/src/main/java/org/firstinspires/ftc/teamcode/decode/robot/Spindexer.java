@@ -11,26 +11,24 @@ public class Spindexer implements Subsystem {
     public static final Spindexer INSTANCE = new Spindexer();
     private Spindexer() { }
 
-    public static class Params {
-        private final Angle thirdCircle = Angle.fromRev(1 / 3);
+    public static class PARAMS {
+        private static final Angle thirdCircle = Angle.fromRev(1 / 3);
 
-        private final int INDEX_SIZE = 3;
-        private final int PATTERN_SIZE = 3;
+        private static final int INDEX_SIZE = 3;
+        private static final int PATTERN_SIZE = 3;
 
         // TODO: Adjust these values based off of what the robot will be.
-        private final int inputLocation = 0;
-        private final int outputLocation = 0;
+        private static final int inputLocation = 0;
+        private static final int outputLocation = 0;
 
-        private final String name = "spindex_servo";
+        private static final String name = "spindex_servo";
     }
-
-    private final Params PARAMS = new Params();
 
     private final ServoEx spindexMotor = new ServoEx(PARAMS.name);
 
-    private final String[] INDEX = new String[PARAMS.INDEX_SIZE];
-    private String[] PATTERN = new String[PARAMS.PATTERN_SIZE];
-    private int patternIncrement = 0;
+    private static final String[] INDEX = new String[PARAMS.INDEX_SIZE];
+    private static String[] PATTERN = new String[PARAMS.PATTERN_SIZE];
+    private static int patternIncrement = 0;
 
     private boolean indexing = false;
 
