@@ -1,6 +1,12 @@
 repositories {
     mavenCentral()
-    maven { url = 'https://maven.brott.dev/' }
+    maven {
+        url = 'https://maven.brott.dev/'
+    }
+    maven {
+        name "nullftcReleases"
+        url "https://maven.nullftc.dev/releases"
+    }
     google() // Needed for androidx
 }
 
@@ -22,5 +28,7 @@ dependencies {
     implementation 'dev.nextftc:control:1.0.0'
     implementation 'dev.nextftc:bindings:1.0.1'
     implementation 'dev.nextftc.extensions:roadrunner:1.0.1'
+
+    implementation 'dev.nullftc:Profiler:SNAPSHOT-8e16b25'
 }
 
