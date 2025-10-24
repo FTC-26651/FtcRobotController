@@ -1,8 +1,4 @@
-package org.firstinspires.ftc.teamcode.decode;
-
-import android.app.Activity;
-import android.graphics.Color;
-import android.view.View;
+package org.firstinspires.ftc.teamcode.decode.tests;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,12 +7,12 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import org.firstinspires.ftc.teamcode.decode.robot.sensors.GreenPurpleSensor;
 
 @TeleOp(name = "Color Sensor Test", group = "Robot")
-public class colorTest extends LinearOpMode {
+public class ColorTest extends LinearOpMode {
     GreenPurpleSensor sensor;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        sensor = new GreenPurpleSensor(hardwareMap, "color");
+        sensor = new GreenPurpleSensor("color");
 
         telemetry.addLine("Test Ready.");
         telemetry.update();
