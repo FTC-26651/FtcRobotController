@@ -55,10 +55,13 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.utility.LambdaCommand;
 import dev.nextftc.extensions.roadrunner.FollowTrajectory;
 import dev.nextftc.extensions.roadrunner.NextFTCMecanumDrive;
 import dev.nextftc.extensions.roadrunner.TrajectoryCommandBuilder;
 import dev.nextftc.extensions.roadrunner.Turn;
+import dev.nextftc.ftc.Gamepads;
 
 @Config
 public final class MecanumDrive extends NextFTCMecanumDrive {
@@ -566,6 +569,16 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
                 beginPose, 0.0,
                 defaultTurnConstraints,
                 defaultVelConstraint, defaultAccelConstraint
+        );
+    }
+
+    public Command driveCommand() {
+        return new LambdaCommand().setUpdate(() -> setDrivePowers(
+            new PoseVelocity2d(new Vector2d(
+                Gamepads.gamepad1().leftStickY().get(),
+                Gamepads.gamepad1().leftStickX().get()),
+                Gamepads.gamepad1().rightStickX().get())
+            )
         );
     }
 }
