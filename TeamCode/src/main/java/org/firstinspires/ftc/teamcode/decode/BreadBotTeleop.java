@@ -7,7 +7,6 @@ import org.firstinspires.ftc.teamcode.decode.robot.BreadBot;
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.components.BindingsComponent;
 import dev.nextftc.core.components.SubsystemComponent;
-import dev.nextftc.ftc.Gamepads;
 import dev.nextftc.ftc.NextFTCOpMode;
 import dev.nextftc.ftc.components.BulkReadComponent;
 
@@ -26,10 +25,10 @@ public class BreadBotTeleop extends NextFTCOpMode {
     @Override
     public void onStartButtonPressed() {
         driverControlled = BreadBot.INSTANCE.drive.driveCommand();
+        driverControlled.schedule();
     }
 
     @Override
     public void onUpdate() {
-        driverControlled.update();
     }
 }
