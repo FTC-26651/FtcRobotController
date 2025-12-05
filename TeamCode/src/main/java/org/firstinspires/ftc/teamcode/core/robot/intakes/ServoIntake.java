@@ -24,6 +24,6 @@ public class ServoIntake implements Subsystem {
 
     @Override
     public void periodic() {
-        servo.setPower(controller.calculate());
+//        servo.setPower(controller.calculate());
     }
 }

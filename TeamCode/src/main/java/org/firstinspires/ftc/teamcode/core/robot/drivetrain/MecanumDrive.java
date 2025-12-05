@@ -575,9 +575,9 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
     public Command driveCommand() {
         return new LambdaCommand().setUpdate(() -> setDrivePowers(
             new PoseVelocity2d(new Vector2d(
-                Gamepads.gamepad1().leftStickY().get(),
-                Gamepads.gamepad1().leftStickX().get()),
-                Gamepads.gamepad1().rightStickX().get())
+                -1 * Gamepads.gamepad1().leftStickY().get(),
+                -1 * Gamepads.gamepad1().leftStickX().get()),
+                -1 * Gamepads.gamepad1().rightStickX().get())
             )
         );
     }
