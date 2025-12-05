@@ -4,7 +4,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.MecanumDrive;
 import org.firstinspires.ftc.teamcode.core.robot.flywheels.SingleFlywheel;
-import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
+import org.firstinspires.ftc.teamcode.core.robot.intakes.ServoIntake;
 
 import dev.nextftc.core.subsystems.SubsystemGroup;
 import dev.nextftc.ftc.ActiveOpMode;
@@ -18,8 +18,8 @@ public class BreadBot extends SubsystemGroup {
 
     public BreadBot() {
         super(
-                MotorIntake.INSTANCE,
-                SingleFlywheel.INSTANCE
+                ServoIntake.INSTANCE
+//                SingleFlywheel.INSTANCE
         );
         drive = new MecanumDrive(ActiveOpMode.hardwareMap(), initialPose);
     }

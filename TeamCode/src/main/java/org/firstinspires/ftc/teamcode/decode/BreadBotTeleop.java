@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.decode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.core.robot.intakes.ServoIntake;
 import org.firstinspires.ftc.teamcode.decode.robot.BreadBot;
 
 import dev.nextftc.core.commands.Command;
@@ -26,9 +27,11 @@ public class BreadBotTeleop extends NextFTCOpMode {
     public void onStartButtonPressed() {
         driverControlled = BreadBot.INSTANCE.drive.driveCommand();
         driverControlled.schedule();
+        ServoIntake.INSTANCE.on.schedule();
     }
 
     @Override
     public void onUpdate() {
+
     }
 }
