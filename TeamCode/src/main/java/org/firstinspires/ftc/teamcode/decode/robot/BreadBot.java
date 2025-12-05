@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.decode.robot;
 
+
 import com.acmerobotics.roadrunner.Pose2d;
 
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.MecanumDrive;
@@ -8,6 +9,7 @@ import org.firstinspires.ftc.teamcode.core.robot.intakes.ServoIntake;
 
 import dev.nextftc.core.subsystems.SubsystemGroup;
 import dev.nextftc.ftc.ActiveOpMode;
+import dev.nextftc.ftc.Gamepads;
 
 public class BreadBot extends SubsystemGroup {
     public static final BreadBot INSTANCE = new BreadBot();
@@ -21,6 +23,12 @@ public class BreadBot extends SubsystemGroup {
                 ServoIntake.INSTANCE
 //                SingleFlywheel.INSTANCE
         );
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+
         drive = new MecanumDrive(ActiveOpMode.hardwareMap(), initialPose);
     }
 }

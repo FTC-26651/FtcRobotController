@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode.decode.tests;
 
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
+@Disabled
 @TeleOp(name = "Odo Test", group = "Robot")
 public class OdoTest extends LinearOpMode {
     GoBildaPinpointDriver odo;
