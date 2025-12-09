@@ -22,8 +22,8 @@ public class BreadBot extends SubsystemGroup {
     public BreadBot() {
         super(
                 ServoIntake.INSTANCE,
-                SingleMotorTransfer.INSTANCE
-//                SingleFlywheel.INSTANCE
+                SingleMotorTransfer.INSTANCE,
+                SingleFlywheel.INSTANCE
         );
     }
 

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.decode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.core.robot.flywheels.SingleFlywheel;
 import org.firstinspires.ftc.teamcode.core.robot.intakes.ServoIntake;
 import org.firstinspires.ftc.teamcode.core.robot.transfers.wheels.SingleMotorTransfer;
 import org.firstinspires.ftc.teamcode.decode.robot.BreadBot;
@@ -46,6 +47,13 @@ public class BreadBotTeleop extends NextFTCOpMode {
             SingleMotorTransfer.INSTANCE.off.update();
         }
 
+        if (gamepad1.b) {
+            SingleFlywheel.INSTANCE.on.update();
+        } else {
+            SingleFlywheel.INSTANCE.off.update();
+        }
+
         ServoIntake.INSTANCE.periodic();
+        SingleFlywheel.INSTANCE.periodic();
     }
 }

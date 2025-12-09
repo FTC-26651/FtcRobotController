@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.core.robot.transfers.wheels;
 
 import dev.nextftc.control.ControlSystem;
 import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.utility.LambdaCommand;
 import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.hardware.controllable.RunToVelocity;
 import dev.nextftc.hardware.impl.MotorEx;
@@ -12,16 +13,23 @@ public class SingleMotorTransfer implements Subsystem {
 
     private final MotorEx motor = new MotorEx("transfer_motor");
 
-    private final ControlSystem controller = ControlSystem.builder()
-            .velPid(0.005, 0, 0)
-            .basicFF(0.01, 0.02, 0.03)
-            .build();
+    private double motorPower = 0;
 
-    public final Command off = new RunToVelocity(controller, 0.0).requires(this).named("TransferOff");
-    public final Command on = new RunToVelocity(controller, 500.0).requires(this).named("TransferOn");
+//    private final ControlSystem controller = ControlSystem.builder()
+//            .velPid(0.005, 0, 0)
+//            .basicFF(0.01, 0.02, 0.03)
+//            .build();
+
+    public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0).requires(this).named("IntakeOn");
+    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 1).requires(this).named("IntakeOn");
+
+    @Override
+    public void initialize() {
+        motor.reverse();
+    }
 
     @Override
     public void periodic() {
-        motor.setPower(controller.calculate(motor.getState()));
+        motor.setPower(motorPower);
     }
 }
