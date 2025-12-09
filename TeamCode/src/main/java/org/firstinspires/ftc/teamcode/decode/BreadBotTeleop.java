@@ -31,15 +31,14 @@ public class BreadBotTeleop extends NextFTCOpMode {
     @Override
     public void onStartButtonPressed() {
         driverControlled = BreadBot.INSTANCE.drive.driveCommand();
-        driverControlled.schedule();
 
         intakeOn = ServoIntake.INSTANCE.on;
-        intakeOn.schedule();
     }
 
     @Override
     public void onUpdate() {
-        driverControlled.update();
+        driverControlled.schedule();
+        intakeOn.schedule();
 
         if (gamepad1.a) {
             SingleMotorTransfer.INSTANCE.on.update();
