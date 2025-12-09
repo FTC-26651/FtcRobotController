@@ -24,17 +24,17 @@ public class DriveTest extends LinearOpMode {
         drive.rightFront.setPower(rightFrontPower);
     }
 
-    @Override
-    public void runOpMode() {
-        drive = new MecanumDrive(hardwareMap, initialPose);
+        @Override
+        public void runOpMode() {
+            drive = new MecanumDrive(hardwareMap, initialPose);
 
-        telemetry.addLine("Robot Ready.");
-        telemetry.update();
+            telemetry.addLine("Robot Ready.");
+            telemetry.update();
 
-        waitForStart();
+            waitForStart();
 
-        while (opModeIsActive()) {
-            move(gamepad1.left_stick_x, gamepad1.left_stick_y, -1 * gamepad1.right_stick_x);
+            while (opModeIsActive()) {
+                move(gamepad1.left_stick_x, gamepad1.left_stick_y, -1 * gamepad1.right_stick_x);
+            }
         }
-    }
 }

@@ -2,12 +2,14 @@ package org.firstinspires.ftc.teamcode.decode.tests;
 
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.MecanumDrive;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.ftc.NextFTCOpMode;
 
+@Disabled
 @Autonomous(name = "Spline Test", group = "Robot")
 public class SplineTest extends NextFTCOpMode {
     private final Pose2d startPose = new Pose2d(9.0, 111.0, Math.toRadians(-90.0));

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.decode.tests;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -7,6 +8,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.math.*;
 
+@Disabled
 @TeleOp(name = "Light Test", group = "Robot")
 public class LightTest extends LinearOpMode {
     public static double round(double value, int places) {
