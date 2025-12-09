@@ -9,20 +9,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Disabled
 @TeleOp(name = "Intake Test", group = "Robot")
 public class IntakeTest extends LinearOpMode {
     CRServo left;
-    DcMotorEx left1;
+    //DcMotorEx left1;
 
 
     @Override
     public void runOpMode() {
         left = this.hardwareMap.get(CRServo.class, "notleft");
-        left1 = this.hardwareMap.get(DcMotorEx.class, "left");
+        //left1 = this.hardwareMap.get(DcMotorEx.class, "left");
 
         left.setDirection(DcMotor.Direction.FORWARD);
-        left1.setDirection(DcMotor.Direction.FORWARD);
+        //left1.setDirection(DcMotor.Direction.FORWARD);
 
         telemetry.addLine("Test Ready.");
         telemetry.update();
@@ -38,13 +37,13 @@ public class IntakeTest extends LinearOpMode {
                 left.setPower(0);
             }
 
-            if (gamepad1.left_bumper) {
-                left1.setPower(1);
-            } else if (gamepad1.right_bumper) {
-                left1.setPower(-1);
-            } else {
-                left1.setPower(0);
-            }
+//            if (gamepad1.left_bumper) {
+//                left1.setPower(1);
+//            } else if (gamepad1.right_bumper) {
+//                left1.setPower(-1);
+//            } else {
+//                left1.setPower(0);
+//            }
         }
     }
 }
