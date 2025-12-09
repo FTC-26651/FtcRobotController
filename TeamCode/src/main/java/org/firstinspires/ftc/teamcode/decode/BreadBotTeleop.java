@@ -51,8 +51,5 @@ public class BreadBotTeleop extends NextFTCOpMode {
         } else {
             SingleFlywheel.INSTANCE.off.update();
         }
-
-        ServoIntake.INSTANCE.periodic();
-        SingleFlywheel.INSTANCE.periodic();
     }
 }
