@@ -25,8 +25,6 @@ public class ServoIntake implements Subsystem {
 
     @Override
     public void periodic() {
-        ActiveOpMode.telemetry().addData("Power: ", servoPower);
-        ActiveOpMode.telemetry().update();
         servo.setPower(servoPower);
     }
 }

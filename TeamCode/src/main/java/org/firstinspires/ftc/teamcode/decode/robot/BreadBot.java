@@ -36,6 +36,8 @@ public class BreadBot extends SubsystemGroup {
         Gamepads.gamepad1().rightStickX();
         Gamepads.gamepad1().rightStickY();
 
+        Gamepads.gamepad1().b();
+
         drive = new MecanumDrive(ActiveOpMode.hardwareMap(), initialPose);
     }
 }
