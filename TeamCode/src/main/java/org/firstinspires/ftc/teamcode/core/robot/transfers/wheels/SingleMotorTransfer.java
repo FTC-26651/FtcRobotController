@@ -22,12 +22,7 @@ public class SingleMotorTransfer implements Subsystem {
 //            .build();
 
     public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0).requires(this).named("IntakeOn");
-    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 0.25).requires(this).named("IntakeOn");
-
-    @Override
-    public void initialize() {
-        motor.reverse();
-    }
+    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 1).requires(this).named("IntakeOn");
 
     @Override
     public void periodic() {

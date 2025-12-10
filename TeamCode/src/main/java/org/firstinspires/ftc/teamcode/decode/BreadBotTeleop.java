@@ -46,6 +46,7 @@ public class BreadBotTeleop extends NextFTCOpMode {
     @Override
     public void onUpdate() {
         driverControlled.schedule();
+        intakeOn.schedule();
 
         if (gamepad1.a) {
             SingleMotorTransfer.INSTANCE.on.update();
@@ -53,14 +54,11 @@ public class BreadBotTeleop extends NextFTCOpMode {
             SingleMotorTransfer.INSTANCE.off.update();
         }
 
-        flywheel.whenBecomesTrue(() -> telemetry.addLine("testing.")).toggleOnBecomesFalse()
-                .whenBecomesTrue(SingleFlywheel.INSTANCE.on::update)
-                .whenBecomesFalse(SingleFlywheel.INSTANCE.off::update);
-
-        telemetry.addData("Button", flywheel.get());
-        telemetry.addData("Toggle", flywheel.toggleOnBecomesFalse().get());
-
-        SingleFlywheel.INSTANCE.periodic();
+        if (gamepad1.dpad_down) {
+            SingleFlywheel.INSTANCE.off.update();
+        } else if (gamepad1.dpad_up) {
+            SingleFlywheel.INSTANCE.on.update();
+        }
 
         telemetry.update();
     }
