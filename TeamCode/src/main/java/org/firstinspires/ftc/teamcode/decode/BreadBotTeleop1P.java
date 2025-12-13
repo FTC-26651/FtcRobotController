@@ -18,14 +18,14 @@ import dev.nextftc.ftc.Gamepads;
 import dev.nextftc.ftc.NextFTCOpMode;
 import dev.nextftc.ftc.components.BulkReadComponent;
 
-@TeleOp(name = "Bread Bot Teleop", group = "Robot")
-public class BreadBotTeleop extends NextFTCOpMode {
+@TeleOp(name = "Bread Bot Teleop 1P", group = "Robot")
+public class BreadBotTeleop1P extends NextFTCOpMode {
     Command driverControlled;
     Button flywheel;
 
     boolean flywheelToggle = false;
 
-    public BreadBotTeleop() {
+    public BreadBotTeleop1P() {
         addComponents(
                 new SubsystemComponent(BreadBot.INSTANCE),
                 BulkReadComponent.INSTANCE,
@@ -44,26 +44,27 @@ public class BreadBotTeleop extends NextFTCOpMode {
     public void onUpdate() {
         driverControlled.schedule();
 
-        if (gamepad2.a) {
+        if (gamepad1.a) {
             SingleMotorTransfer.INSTANCE.forward.update();
-        } else if (gamepad2.y) {
+        } else if (gamepad1.y) {
             SingleMotorTransfer.INSTANCE.back.update();
         } else {
             SingleMotorTransfer.INSTANCE.off.update();
         }
 
-        if (gamepad2.dpad_down) {
+        if (gamepad1.dpad_down) {
             SingleFlywheel.INSTANCE.off.update();
-        } else if (gamepad2.dpad_up) {
+        } else if (gamepad1.dpad_up) {
             SingleFlywheel.INSTANCE.on.update();
         }
 
-        if (gamepad2.left_bumper) {
+        if (gamepad1.left_bumper) {
             ServoIntake.INSTANCE.off.update();
-        } else if (gamepad2.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             ServoIntake.INSTANCE.on.update();
         }
 
         telemetry.update();
+        SingleMotorTransfer.INSTANCE.periodic();
     }
 }

@@ -22,7 +22,7 @@ public class SingleFlywheel implements Subsystem {
 //            .build();
 
     public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0).requires(this).named("IntakeOn");
-    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 0.5).requires(this).named("IntakeOn");
+    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 0.65).requires(this).named("IntakeOn"); // No longer nice D:
 
     @Override
     public void periodic() {

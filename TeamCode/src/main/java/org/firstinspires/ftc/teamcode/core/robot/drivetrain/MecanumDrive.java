@@ -76,13 +76,13 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
 
         // drive model parameters
         public double inPerTick = 63.5 / 31727;
-        public double lateralInPerTick = -54.27489022822582;
-        public double trackWidthTicks = 5881.17462422387;
+        public double lateralInPerTick = -49.34536032631672;
+        public double trackWidthTicks = 5995.633830684264;
 
         // feedforward parameters (in tick units)
-        public double kS = 0.8443350411825645;
-        public double kV = 0.0003668213587872252;
-        public double kA = 0.000055;
+        public double kS = 1.1731950994272071;
+        public double kV = 0.0003413183691213228;
+        public double kA = 0.00008;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;

@@ -21,11 +21,13 @@ public class SingleMotorTransfer implements Subsystem {
 //            .basicFF(0.01, 0.02, 0.03)
 //            .build();
 
-    public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0).requires(this).named("IntakeOn");
-    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 1).requires(this).named("IntakeOn");
+    public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0);//.requires(this).named("TransferOff");
+    public final Command forward = new LambdaCommand().setUpdate(() -> motorPower = -1);//.requires(this).named("TransferForward");
+    public final Command back = new LambdaCommand().setUpdate(() -> motorPower = 1);//.requires(this).named("TransferBack");
 
     @Override
     public void periodic() {
+        ActiveOpMode.telemetry().addData("Power: ", motorPower);
         motor.setPower(motorPower);
     }
 }

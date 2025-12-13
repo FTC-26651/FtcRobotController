@@ -15,7 +15,7 @@ import dev.nextftc.ftc.Gamepads;
 public class BreadBot extends SubsystemGroup {
     public static final BreadBot INSTANCE = new BreadBot();
 
-    private final Pose2d initialPose = new Pose2d(9.0, 111.0, Math.toRadians(-90.0));
+    private Pose2d initialPose = new Pose2d(0, 0, Math.toRadians(-90.0));
 
     public MecanumDrive drive;
 
@@ -39,5 +39,10 @@ public class BreadBot extends SubsystemGroup {
         Gamepads.gamepad1().b();
 
         drive = new MecanumDrive(ActiveOpMode.hardwareMap(), initialPose);
+    }
+
+    public void initialize(Pose2d pose) {
+        initialPose = pose;
+        initialize();
     }
 }

@@ -15,7 +15,7 @@ public class ServoIntake implements Subsystem {
 
     private CRServo servo = null;
 
-    public final Command off = new LambdaCommand().setUpdate(() -> servoPower = 0).requires(this).named("IntakeOn");
+    public final Command off = new LambdaCommand().setUpdate(() -> servoPower = 0).requires(this).named("IntakeOff");
     public final Command on = new LambdaCommand().setUpdate(() -> servoPower = -1).requires(this).named("IntakeOn");
 
     @Override
