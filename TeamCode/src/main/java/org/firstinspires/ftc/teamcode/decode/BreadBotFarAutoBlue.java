@@ -29,7 +29,7 @@ public class BreadBotFarAutoBlue extends NextFTCOpMode {
     @Override
     public void onInit() {
         move = BreadBot.INSTANCE.drive.actionBuilder(new Pose2d(4, -65, Math.toRadians(0.0)))
-                .splineTo(new Vector2d(4, -42), Math.toRadians(90));
+                .strafeTo(new Vector2d(4, -42));
     }
 
     @Override
