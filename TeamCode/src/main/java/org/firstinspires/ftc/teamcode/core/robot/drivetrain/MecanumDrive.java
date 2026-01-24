@@ -80,8 +80,8 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
         public double trackWidthTicks = 5995.633830684264;
 
         // feedforward parameters (in tick units)
-        public double kS = 1.1731950994272071;
-        public double kV = 0.0003413183691213228;
+        public double kS = 1.1607470498102015;
+        public double kV = 0.0003419134193495133;
         public double kA = 0.00008;
 
         // path profile parameters (in inches)
@@ -101,6 +101,13 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
         public double headingVelGain = 0.0; // shared with turn
+
+        public void setLogoFacingDirection(RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection) {
+            this.logoFacingDirection = logoFacingDirection;
+        }
+        public void setUsbFacingDirection(RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection) {
+            this.usbFacingDirection = usbFacingDirection;
+        }
     }
 
     public static Params PARAMS = new Params();
