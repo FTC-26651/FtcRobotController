@@ -4,6 +4,7 @@ import dev.nextftc.control.ControlSystem;
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.utility.LambdaCommand;
 import dev.nextftc.core.subsystems.Subsystem;
+import dev.nextftc.ftc.ActiveOpMode;
 import dev.nextftc.hardware.controllable.RunToVelocity;
 import dev.nextftc.hardware.impl.MotorEx;
 
@@ -21,12 +22,8 @@ public class SingleFlywheel implements Subsystem {
 //            .build();
 
     public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0).requires(this).named("IntakeOn");
-    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 0.5).requires(this).named("IntakeOn");
-
-//    @Override
-//    public void initialize() {
-//        motor.reverse();
-//    }
+    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 0.60).requires(this).named("IntakeOn"); // No longer nice D:
+    public final Command onHigh = new LambdaCommand().setUpdate(() -> motorPower = 1).requires(this).named("IntakeOn");
 
     @Override
     public void periodic() {

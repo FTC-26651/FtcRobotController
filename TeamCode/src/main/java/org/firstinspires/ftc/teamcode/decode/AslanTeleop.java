@@ -5,9 +5,9 @@ import static dev.nextftc.bindings.Bindings.*;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.core.robot.flywheels.SingleFlywheel;
-import org.firstinspires.ftc.teamcode.core.robot.intakes.ServoIntake;
-import org.firstinspires.ftc.teamcode.core.robot.transfers.wheels.SingleMotorTransfer;
-import org.firstinspires.ftc.teamcode.decode.robot.BreadBot;
+import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
+import org.firstinspires.ftc.teamcode.core.robot.transfers.pushers.ServoPusher;
+import org.firstinspires.ftc.teamcode.decode.robot.Aslan;
 
 import dev.nextftc.bindings.Button;
 import dev.nextftc.core.commands.Command;
@@ -18,16 +18,16 @@ import dev.nextftc.ftc.Gamepads;
 import dev.nextftc.ftc.NextFTCOpMode;
 import dev.nextftc.ftc.components.BulkReadComponent;
 
-@TeleOp(name = "Bread Bot Teleop", group = "Robot")
-public class BreadBotTeleop extends NextFTCOpMode {
+@TeleOp(name = "Aslan Teleop", group = "Robot")
+public class AslanTeleop extends NextFTCOpMode {
     Command driverControlled;
     Button flywheel;
 
     boolean flywheelToggle = false;
 
-    public BreadBotTeleop() {
+    public AslanTeleop() {
         addComponents(
-                new SubsystemComponent(BreadBot.INSTANCE),
+                new SubsystemComponent(Aslan.INSTANCE),
                 BulkReadComponent.INSTANCE,
                 BindingsComponent.INSTANCE
         );
@@ -35,7 +35,7 @@ public class BreadBotTeleop extends NextFTCOpMode {
 
     @Override
     public void onStartButtonPressed() {
-        driverControlled = BreadBot.INSTANCE.drive.driveCommand();
+        driverControlled = Aslan.INSTANCE.drive.driveCommand();
 
         flywheel = button(() -> gamepad1.b);
     }
@@ -45,23 +45,23 @@ public class BreadBotTeleop extends NextFTCOpMode {
         driverControlled.schedule();
 
         if (gamepad2.a) {
-            SingleMotorTransfer.INSTANCE.forward.update();
-        } else if (gamepad2.y) {
-            SingleMotorTransfer.INSTANCE.back.update();
+            ServoPusher.INSTANCE.on.update();
         } else {
-            SingleMotorTransfer.INSTANCE.off.update();
+            ServoPusher.INSTANCE.off.update();
         }
 
         if (gamepad2.dpad_down) {
             SingleFlywheel.INSTANCE.off.update();
         } else if (gamepad2.dpad_up) {
             SingleFlywheel.INSTANCE.on.update();
+        } else if (gamepad2.y) {
+            SingleFlywheel.INSTANCE.onHigh.update();;
         }
 
         if (gamepad2.left_bumper) {
-            ServoIntake.INSTANCE.off.update();
+            MotorIntake.INSTANCE.off.update();
         } else if (gamepad2.right_bumper) {
-            ServoIntake.INSTANCE.on.update();
+            MotorIntake.INSTANCE.forward.update();
         }
 
         telemetry.update();

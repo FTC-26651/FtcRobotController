@@ -70,19 +70,19 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
         // TODO: fill in these values based on
         //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
         public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-                RevHubOrientationOnRobot.LogoFacingDirection.UP;
+                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;
         public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-                RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+                RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
         // drive model parameters
         public double inPerTick = 63.5 / 31727;
-        public double lateralInPerTick = -54.27489022822582;
-        public double trackWidthTicks = 5881.17462422387;
+        public double lateralInPerTick = -49.34536032631672;
+        public double trackWidthTicks = 5995.633830684264;
 
         // feedforward parameters (in tick units)
-        public double kS = 0.8443350411825645;
-        public double kV = 0.0003668213587872252;
-        public double kA = 0.000055;
+        public double kS = 1.1607470498102015;
+        public double kV = 0.0003419134193495133;
+        public double kA = 0.00008;
 
         // path profile parameters (in inches)
         public double maxWheelVel = 50;
@@ -101,6 +101,13 @@ public final class MecanumDrive extends NextFTCMecanumDrive {
         public double axialVelGain = 0.0;
         public double lateralVelGain = 0.0;
         public double headingVelGain = 0.0; // shared with turn
+
+        public void setLogoFacingDirection(RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection) {
+            this.logoFacingDirection = logoFacingDirection;
+        }
+        public void setUsbFacingDirection(RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection) {
+            this.usbFacingDirection = usbFacingDirection;
+        }
     }
 
     public static Params PARAMS = new Params();

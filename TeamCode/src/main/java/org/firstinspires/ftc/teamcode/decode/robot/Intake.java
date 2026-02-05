@@ -22,7 +22,7 @@ public class Intake extends SubsystemGroup {
         if (Spindexer.INSTANCE.isFull()) {
             MotorIntake.INSTANCE.off.schedule();
         } else {
-            MotorIntake.INSTANCE.on.schedule();
+            MotorIntake.INSTANCE.forward.schedule();
             if (!color.getColor().isEmpty()) {
                 Spindexer.INSTANCE.addOrb(color.getColor());
             }
