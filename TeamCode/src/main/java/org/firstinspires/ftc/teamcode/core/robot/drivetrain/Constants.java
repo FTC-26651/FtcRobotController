@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.pedroPathing;
+package org.firstinspires.ftc.teamcode.core.robot.drivetrain;
 
 import com.pedropathing.follower.Follower;
 import com.pedropathing.follower.FollowerConstants;
@@ -26,7 +26,7 @@ public class Constants {
             .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
             .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
             .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE);
-     
+
     public static PinpointConstants localizerConstants = new PinpointConstants()
             .forwardPodY(-5)
             .strafePodX(0.5)
