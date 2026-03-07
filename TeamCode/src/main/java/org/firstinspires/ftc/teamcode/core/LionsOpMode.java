@@ -1,17 +1,23 @@
 package org.firstinspires.ftc.teamcode.core;
 
 import org.firstinspires.ftc.teamcode.core.robot.Commands;
+import org.firstinspires.ftc.teamcode.core.robot.PathsToCommands;
+import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
 import org.yaml.snakeyaml.Yaml;
 
 import java.util.List;
 import java.util.Map;
 
 import dev.nextftc.core.commands.Command;
+import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.ftc.NextFTCOpMode;
 
 public class LionsOpMode extends NextFTCOpMode {
     {
-        addComponents(/* vararg components */);
+        addComponents(
+                new PedroComponent(Constants::createFollower)
+                // Whatever other components you may desire
+                );
     }
 
     Yaml yaml;
@@ -34,6 +40,8 @@ public class LionsOpMode extends NextFTCOpMode {
         data = yaml.load("HelloWorld");
         commandList = (List<String>) data.get("commands");
         commands = Commands.getCommands();
+
+        new PathsToCommands(PedroComponent.follower());
     }
     @Override public void onWaitForStart() {}
     @Override public void onStartButtonPressed() {}
