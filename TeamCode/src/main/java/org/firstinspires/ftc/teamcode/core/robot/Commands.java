@@ -1,14 +1,19 @@
 package org.firstinspires.ftc.teamcode.core.robot;
 
 import org.firstinspires.ftc.teamcode.core.robot.flywheels.SingleFlywheel;
+import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
 
 import java.util.Map;
 
 import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.delays.Delay;
 
 public class Commands {
     private static Map<String, Command> commands = Map.of(
-            "throw", SingleFlywheel.INSTANCE.on
+            "throw", SingleFlywheel.INSTANCE.on,
+            "turn on intake", MotorIntake.INSTANCE.forward,
+            "wait 5 seconds", new Delay(5),
+            "turn off intake", MotorIntake.INSTANCE.off
     );
 
     public static Map<String, Command> getCommands() {

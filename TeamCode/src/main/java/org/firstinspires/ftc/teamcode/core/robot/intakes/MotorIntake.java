@@ -20,12 +20,12 @@ public class MotorIntake implements Subsystem {
 //            .basicFF(0.01, 0.02, 0.03)
 //            .build();
 
-    public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0);//.requires(this).named("TransferOff");
-    public final Command forward = new LambdaCommand().setUpdate(() -> motorPower = -1);//.requires(this).named("TransferForward");
-    public final Command back = new LambdaCommand().setUpdate(() -> motorPower = 1);//.requires(this).named("TransferBack");
+    public final Command off = new LambdaCommand().setUpdate(() -> motor.setPower(0));//.requires(this).named("TransferOff");
+    public final Command forward = new LambdaCommand().setStart(() -> motor.setPower(-1));//.requires(this).named("TransferForward");
+    public final Command back = new LambdaCommand().setUpdate(() -> motor.setPower(1));//.requires(this).named("TransferBack");
 
     @Override
     public void periodic() {
-        motor.setPower(motorPower);
+        // motor.setPower(motorPower);
     }
 }
