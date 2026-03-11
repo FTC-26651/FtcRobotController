@@ -1,4 +1,6 @@
 commands:
   - turn on intake
-  - wait 5 seconds
+  - Follow Path 1
+  - Follow Path 2
+  - Follow Path 3
   - turn off intake

@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode.core;
 
+import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.core.robot.Commands;
-import org.firstinspires.ftc.teamcode.core.robot.PathsToCommands;
+import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
-import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,13 +25,15 @@ public class LionsOpMode extends NextFTCOpMode {
                 );
     }
 
-    Yaml yaml;
-    Map<String, Object> data;
-    List<String> commandList;
-    Map<String, Command> commands;
-    int commandIndex = 0;
-    Command currentCommand = null;
+    private Robot robot;
+
+    private List<String> commandList;
+    private Map<String, Command> commands;
+    private int commandIndex = 0;
+    private Command currentCommand = null;
     boolean commandStarted;
+
+    private final String filePath = "test.yaml";
 
     // Call this when a command is finished. I can't think of the right name right now
     private void finishCommand() {
@@ -45,31 +44,33 @@ public class LionsOpMode extends NextFTCOpMode {
 
     private Command getNextCommand() {
         String commandName = commandList.get(commandIndex);
-        return commands.get(commandName);
+        return commands.get(commandName.toLowerCase());
     }
     private String getNextCommandName() {
-        return commandList.get(commandIndex);
+        return commandList.get(commandIndex).toLowerCase();
     }
 
     @Override public void onInit() {
-        yaml = new Yaml();
+        Yaml yaml = new Yaml();
+        Map<String, Object> data;
 
         try {
-            data = yaml.load(hardwareMap.appContext.getAssets().open("test.yaml"));
+            data = yaml.load(hardwareMap.appContext.getAssets().open(filePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        commandList = (List<String>) data.get("commands");
-        commands = Commands.getCommands();
+        robot = new Robot(PedroComponent.follower());
+        robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
 
-        new PathsToCommands(PedroComponent.follower());
+        commandList = (List<String>) data.get("commands");
+        commands = robot.commands.getCommands();
     }
     @Override public void onWaitForStart() {}
     @Override public void onStartButtonPressed() {}
     @Override public void onUpdate() {
         if (commandIndex >= commandList.size()) {
-            this.telemetry.addLine("All actions complete.");
+            this.telemetry.addLine("All commands complete.");
             this.telemetry.update();
             return;
         }
@@ -78,7 +79,7 @@ public class LionsOpMode extends NextFTCOpMode {
             currentCommand = getNextCommand();
 
             if (currentCommand == null) {
-                this.telemetry.addLine("Warning: unknown action '" + getNextCommandName() + "', ignoring.");
+                this.telemetry.addLine("Warning: unknown command '" + getNextCommandName() + "', ignoring.");
                 finishCommand();
             } else {
                 currentCommand.schedule();
