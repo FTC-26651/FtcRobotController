@@ -21,12 +21,11 @@ public class SingleFlywheel implements Subsystem {
 //            .basicFF(0.01, 0.02, 0.03)
 //            .build();
 
-    public final Command off = new LambdaCommand().setUpdate(() -> motorPower = 0).requires(this).named("IntakeOn");
-    public final Command on = new LambdaCommand().setUpdate(() -> motorPower = 0.60).requires(this).named("IntakeOn"); // No longer nice D:
-    public final Command onHigh = new LambdaCommand().setUpdate(() -> motorPower = 1).requires(this).named("IntakeOn");
+    public final Command off = new LambdaCommand().setUpdate(() -> motor.setPower(0)).requires(this).named("FlywheelOff");
+    public final Command on = new LambdaCommand().setUpdate(() -> motor.setPower(0.60)).requires(this).named("FlywheelOn"); // No longer nice D:
+    public final Command onHigh = new LambdaCommand().setUpdate(() -> motor.setPower(1)).requires(this).named("FlywheelOnHigh");
 
     @Override
     public void periodic() {
-        motor.setPower(motorPower);
     }
 }

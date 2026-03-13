@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.core.robot;
 
 import org.firstinspires.ftc.teamcode.core.robot.flywheels.SingleFlywheel;
 import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
+import org.firstinspires.ftc.teamcode.core.robot.transfers.pushers.ServoPusher;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,10 +12,14 @@ import dev.nextftc.core.commands.delays.Delay;
 
 public class Commands {
     private Map<String, Command> commands = new HashMap<>(Map.of(
-            "throw", SingleFlywheel.INSTANCE.on,
-            "turn on intake", MotorIntake.INSTANCE.forward,
+            "wait half a second", new Delay(0.5),
             "wait 5 seconds", new Delay(5),
-            "turn off intake", MotorIntake.INSTANCE.off
+            "turn on flywheel", SingleFlywheel.INSTANCE.on,
+            "turn off flywheel", SingleFlywheel.INSTANCE.off,
+            "turn on intake", MotorIntake.INSTANCE.forward,
+            "turn off intake", MotorIntake.INSTANCE.off,
+            "turn on transfer", ServoPusher.INSTANCE.on,
+            "turn off transfer", ServoPusher.INSTANCE.off
     ));
 
     public Map<String, Command> getCommands() {

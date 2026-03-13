@@ -1,6 +1,19 @@
 commands:
-  - turn on intake
-  - Follow Path 1
-  - Follow Path 2
-  - Follow Path 3
+  - Turn on intake
+  - Go to First Row
+  - Go to Launch Zone
+  - turn on transfer
+  - Wait Half a second
+  - TUrn off transfer
+  - Go to Second Row
+  - Go to Launch Zone
+  - turn on transfer
+  - wait Half a second
+  - TUrn off transfer
+  - Go to Third Row
+  - Go to Launch Zone
+  - Turn on transfer
+  - wait half a second
+  - Turn off transfer
   - turn off intake
+  - go to park

@@ -12,12 +12,10 @@ public class ServoPusher implements Subsystem {
     public static final ServoPusher INSTANCE = new ServoPusher();
     private ServoPusher() { }
 
-    private double servoPosition = 0;
-
     private CRServo servo = null;
 
-    public final Command off = new LambdaCommand().setUpdate(() -> servoPosition = 0).requires(this).named("IntakeOff");
-    public final Command on = new LambdaCommand().setUpdate(() -> servoPosition = 1).requires(this).named("IntakeOn");
+    public final Command off = new LambdaCommand().setUpdate(() -> servo.setPower(0)).requires(this).named("TransferOff");
+    public final Command on = new LambdaCommand().setUpdate(() -> servo.setPower(1)).requires(this).named("TransferOn");
 
     @Override
     public void initialize() {
@@ -26,7 +24,5 @@ public class ServoPusher implements Subsystem {
 
     @Override
     public void periodic() {
-        servo.setPower(servoPosition);
-        ActiveOpMode.telemetry().addData("Servo Power: ", servoPosition);
     }
 }

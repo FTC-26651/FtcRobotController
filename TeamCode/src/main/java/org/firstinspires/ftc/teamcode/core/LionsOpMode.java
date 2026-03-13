@@ -62,6 +62,7 @@ public class LionsOpMode extends NextFTCOpMode {
 
         robot = new Robot(PedroComponent.follower());
         robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
+        robot.initialize();
 
         commandList = (List<String>) data.get("commands");
         commands = robot.commands.getCommands();

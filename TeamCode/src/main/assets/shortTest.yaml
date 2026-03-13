@@ -1,0 +1,4 @@
+commands:
+  - turn on intake
+  - wait 5 seconds
+  - turn off intake
