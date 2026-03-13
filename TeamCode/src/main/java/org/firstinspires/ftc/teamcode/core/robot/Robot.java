@@ -7,6 +7,7 @@ import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathChain;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.core.CommandFactory;
 import org.firstinspires.ftc.teamcode.core.robot.transfers.pushers.ServoPusher;
 
 import java.util.Map;
@@ -63,15 +64,15 @@ public class Robot extends SubsystemGroup {
     // Follow the scheme of "pathName", getCommand(paths.pathName). If you want, you can adjust HoldEnd
     // and MaxPower. Once done, you can call the paths in the yaml.
     private void addPaths() {
-        Map<String, Command> pathCommands = Map.of(
-                "follow path 1", getCommand(paths.Path1),
-                "follow path 2", getCommand(paths.Path2),
-                "follow path 3", getCommand(paths.Path3),
-                "go to first row", getCommand(paths.FirstRow),
-                "go to second row", getCommand(paths.SecondRow),
-                "go to third row", getCommand(paths.ThirdRow),
-                "go to launch zone", getCommand(paths.LaunchZone),
-                "go to park", getCommand(paths.Park)
+        Map<String, CommandFactory> pathCommands = Map.of(
+                "follow path 1", args -> getCommand(paths.Path1),
+                "follow path 2", args -> getCommand(paths.Path2),
+                "follow path 3", args -> getCommand(paths.Path3),
+                "go to first row", args -> getCommand(paths.FirstRow),
+                "go to second row", args -> getCommand(paths.SecondRow),
+                "go to third row", args -> getCommand(paths.ThirdRow),
+                "go to launch zone", args -> getCommand(paths.LaunchZone),
+                "go to park", args -> getCommand(paths.Park)
         );
         commands.addCommands(pathCommands);
     }

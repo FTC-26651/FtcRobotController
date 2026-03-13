@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.core;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.core.robot.Commands;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
 import org.yaml.snakeyaml.Yaml;
@@ -11,6 +10,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.extensions.pedro.PedroComponent;
@@ -27,8 +27,8 @@ public class LionsOpMode extends NextFTCOpMode {
 
     private Robot robot;
 
-    private List<String> commandList;
-    private Map<String, Command> commands;
+    private List<Map<String, Object>> commandList;
+    private Map<String, CommandFactory> commands;
     private int commandIndex = 0;
     private Command currentCommand = null;
     boolean commandStarted;
@@ -43,11 +43,18 @@ public class LionsOpMode extends NextFTCOpMode {
     }
 
     private Command getNextCommand() {
-        String commandName = commandList.get(commandIndex);
-        return commands.get(commandName.toLowerCase());
+        Map<String, Object> entry = commandList.get(commandIndex);
+        String name = ((String) Objects.requireNonNull(entry.get("name"))).toLowerCase();
+
+        CommandFactory factory = commands.get(name);
+        if (factory == null) return null;
+
+        return factory.create(entry);
     }
+
     private String getNextCommandName() {
-        return commandList.get(commandIndex).toLowerCase();
+        Map<String, Object> entry = commandList.get(commandIndex);
+        return ((String) Objects.requireNonNull(entry.get("name"))).toLowerCase();
     }
 
     @Override public void onInit() {
@@ -64,15 +71,17 @@ public class LionsOpMode extends NextFTCOpMode {
         robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
         robot.initialize();
 
-        commandList = (List<String>) data.get("commands");
+        commandList = (List<Map<String, Object>>) data.get("commands");
         commands = robot.commands.getCommands();
     }
     @Override public void onWaitForStart() {}
     @Override public void onStartButtonPressed() {}
     @Override public void onUpdate() {
+        robot.periodic();
+        this.telemetry.update();
+
         if (commandIndex >= commandList.size()) {
             this.telemetry.addLine("All commands complete.");
-            this.telemetry.update();
             return;
         }
 
@@ -90,14 +99,10 @@ public class LionsOpMode extends NextFTCOpMode {
             currentCommand.update();
 
             this.telemetry.addLine("Current command: " + currentCommand.name());
-            this.telemetry.update();
             if (currentCommand.isDone()) {
                 finishCommand();
             }
         }
-
-        this.telemetry.update();
-
     }
     @Override public void onStop() {}
 }
