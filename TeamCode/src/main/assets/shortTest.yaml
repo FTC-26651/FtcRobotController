@@ -1,4 +1,10 @@
 commands:
-  - turn on intake
-  - wait 5 seconds
-  - turn off intake
+  - name: intake
+    action: on
+  - name: path 1
+    hold end: false
+    max power: 0.75
+  - name: wait
+    duration: 5000
+  - name: intake
+    action: off

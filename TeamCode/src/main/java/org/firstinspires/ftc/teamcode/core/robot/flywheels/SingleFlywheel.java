@@ -14,8 +14,6 @@ public class SingleFlywheel implements Subsystem {
 
     private final MotorEx motor = new MotorEx("flywheel_motor");
 
-    private double motorPower = 0;
-
 //    private final ControlSystem controller = ControlSystem.builder()
 //            .velPid(0.005, 0, 0)
 //            .basicFF(0.01, 0.02, 0.03)
@@ -24,6 +22,11 @@ public class SingleFlywheel implements Subsystem {
     public final Command off = new LambdaCommand().setUpdate(() -> motor.setPower(0)).requires(this).named("FlywheelOff");
     public final Command on = new LambdaCommand().setUpdate(() -> motor.setPower(0.60)).requires(this).named("FlywheelOn"); // No longer nice D:
     public final Command onHigh = new LambdaCommand().setUpdate(() -> motor.setPower(1)).requires(this).named("FlywheelOnHigh");
+
+    @Override
+    public void initialize() {
+        motor.setPower(0);
+    }
 
     @Override
     public void periodic() {

@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core;
 import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.teamcode.core.robot.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
 import org.yaml.snakeyaml.Yaml;
@@ -33,7 +34,8 @@ public class LionsOpMode extends NextFTCOpMode {
     private Command currentCommand = null;
     boolean commandStarted;
 
-    private final String filePath = "test.yaml";
+    private final String autoFilePath = "test.yaml";
+    private final String pathsFilePath = "paths.yaml";
 
     // Call this when a command is finished. I can't think of the right name right now
     private void finishCommand() {
@@ -62,10 +64,12 @@ public class LionsOpMode extends NextFTCOpMode {
         Map<String, Object> data;
 
         try {
-            data = yaml.load(hardwareMap.appContext.getAssets().open(filePath));
+            data = yaml.load(hardwareMap.appContext.getAssets().open(autoFilePath));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        PathParser.setFilePath(pathsFilePath);
 
         robot = new Robot(PedroComponent.follower());
         robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));

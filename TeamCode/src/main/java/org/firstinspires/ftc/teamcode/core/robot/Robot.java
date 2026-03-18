@@ -75,6 +75,9 @@ public class Robot extends SubsystemGroup {
                 "go to park", args -> getCommand(paths.Park)
         );
         commands.addCommands(pathCommands);
+
+        PathParser.parse(follower);
+        commands.addCommands(PathParser.getPathCommands());
     }
 
     private static class Paths {
