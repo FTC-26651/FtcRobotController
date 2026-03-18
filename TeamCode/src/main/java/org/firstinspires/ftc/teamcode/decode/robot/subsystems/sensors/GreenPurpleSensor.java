@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.decode.robot.sensors;
+package org.firstinspires.ftc.teamcode.decode.robot.subsystems.sensors;
 
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 

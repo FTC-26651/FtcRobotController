@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.core.robot.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
+import org.firstinspires.ftc.teamcode.decode.robot.Aslan;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class LionsOpMode extends NextFTCOpMode {
 
         PathParser.setFilePath(pathsFilePath);
 
-        robot = new Robot(PedroComponent.follower());
+        robot = new Aslan(PedroComponent.follower());
         robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
         robot.initialize();
 

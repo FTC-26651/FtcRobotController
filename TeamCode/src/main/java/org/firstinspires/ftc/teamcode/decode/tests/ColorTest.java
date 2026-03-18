@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-import org.firstinspires.ftc.teamcode.decode.robot.sensors.GreenPurpleSensor;
+import org.firstinspires.ftc.teamcode.decode.robot.subsystems.sensors.GreenPurpleSensor;
 
 @Disabled
 @TeleOp(name = "Color Sensor Test", group = "Robot")

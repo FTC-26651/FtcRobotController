@@ -25,13 +25,15 @@ public class MotorIntake implements Subsystem {
 
     public final Command off = new LambdaCommand().setUpdate(() -> motor.setPower(0)).requires(this).named("Transfer Off");
     public final Command forward = new LambdaCommand().setStart(() -> motor.setPower(-1)).requires(this).named("Transfer Forward");
-    public final Command back = new LambdaCommand().setUpdate(() -> motor.setPower(1)).requires(this).named("Transfer Back");
+    public final Command reverse = new LambdaCommand().setUpdate(() -> motor.setPower(1)).requires(this).named("Transfer Back");
 
     public Command useIntake(String action) {
         return new LambdaCommand().setStart(() -> {
            switch (action) {
-               case "on":
+               case "forward":
                    forward.schedule();
+               case "reverse":
+                   reverse.schedule();
                case "off":
                    off.schedule();
            }

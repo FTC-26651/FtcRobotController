@@ -24,6 +24,8 @@ public class Robot extends SubsystemGroup {
 
     private final Paths paths;
 
+    private String allianceColor;
+
     private static Command getCommand(PathChain path) {
         return new FollowPath(path);
     }
@@ -56,6 +58,10 @@ public class Robot extends SubsystemGroup {
 
     public void setStartingPose(Pose pose) {
         follower.setStartingPose(pose);
+    }
+
+    public void setAllianceColor(String color) {
+        allianceColor = color;
     }
 
     // When using pedro's built in visualizer (https://visualizer.pedropathing.com/) export the path

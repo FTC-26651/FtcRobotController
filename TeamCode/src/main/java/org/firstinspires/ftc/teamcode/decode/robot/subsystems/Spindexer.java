@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.decode.robot;
+package org.firstinspires.ftc.teamcode.decode.robot.subsystems;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.utility.InstantCommand;

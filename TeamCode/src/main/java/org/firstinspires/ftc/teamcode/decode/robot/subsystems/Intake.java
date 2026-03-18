@@ -1,7 +1,7 @@
-package org.firstinspires.ftc.teamcode.decode.robot;
+package org.firstinspires.ftc.teamcode.decode.robot.subsystems;
 
 import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
-import org.firstinspires.ftc.teamcode.decode.robot.sensors.GreenPurpleSensor;
+import org.firstinspires.ftc.teamcode.decode.robot.subsystems.sensors.GreenPurpleSensor;
 
 import dev.nextftc.core.subsystems.SubsystemGroup;
 
