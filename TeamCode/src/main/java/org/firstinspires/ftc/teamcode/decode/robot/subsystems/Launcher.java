@@ -39,7 +39,7 @@ public class Launcher implements Subsystem {
     public final Command off = new LambdaCommand()
             .setUpdate(() -> setControllerGoal(0.0))
             .requires(this)
-            .named("FlywheelOff");
+            .named("Flywheel Off");
     public final Command on = new LambdaCommand()
             .setUpdate(() -> setControllerGoal(powers.get(getDistance())))
             .requires(this)
