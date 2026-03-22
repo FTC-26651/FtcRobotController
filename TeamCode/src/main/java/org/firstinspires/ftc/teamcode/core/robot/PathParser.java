@@ -17,9 +17,6 @@ import java.util.Objects;
 
 import dev.nextftc.extensions.pedro.FollowPath;
 
-/*
- * TODO: Add options for holdEnd and maxPower
- */
 
 public class PathParser {
     private static String filePath = "paths.yaml"; // Default to paths.yaml if nothing else is provided
@@ -28,6 +25,10 @@ public class PathParser {
     private static Map<String, Object> root;
 
     private static final Map<String, CommandFactory> pathCommands = new HashMap<>();
+
+    private static Pose startPose;
+    private static Pose endPose;
+    private static Pose trueStartPose;
 
     private static Pose extractPose(Map<String, Object> map) {
         double x = ((Number) Objects.requireNonNull(map.get("x"))).doubleValue();
@@ -81,6 +82,9 @@ public class PathParser {
         root = yaml.load(filePath);
         List<Map<String, Object>> lines = (List<Map<String, Object>>) root.get("lines");
 
+        trueStartPose = extractStartPose(root);
+        startPose = trueStartPose;
+
         assert lines != null;
         for (Map<String, Object> line : lines) {
 
@@ -96,8 +100,7 @@ public class PathParser {
                 PathBuilder builder = follower.pathBuilder();
 
                 assert endPoint != null;
-                Pose startPose = extractStartPose(root);
-                Pose endPose = extractPose(endPoint);
+                endPose = extractPose(endPoint);
 
                 // If there are no control points, we use a BezierLine. Otherwise we use a Bezier Curve
                 assert controlPoints != null;
@@ -124,6 +127,7 @@ public class PathParser {
             };
 
             pathCommands.put(name, factory);
+            startPose = endPose;
         }
     }
 
@@ -133,5 +137,9 @@ public class PathParser {
 
     public static Map<String, CommandFactory> getPathCommands() {
         return pathCommands;
+    }
+
+    public static Pose getTrueStartPose() {
+        return trueStartPose;
     }
 }

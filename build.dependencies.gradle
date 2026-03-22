@@ -33,9 +33,7 @@ dependencies {
     implementation 'dev.nextftc:bindings:1.0.1'
     implementation 'dev.nextftc.extensions:pedro:1.0.0'
 
-    implementation 'dev.nullftc:Profiler:SNAPSHOT-8e16b25'
-
-    implementation 'com.pedropathing:ftc:2.0.6'
+    implementation 'com.pedropathing:ftc:2.1.0'
     implementation 'com.pedropathing:telemetry:1.0.0'
     implementation 'com.bylazar:fullpanels:1.0.6'
 

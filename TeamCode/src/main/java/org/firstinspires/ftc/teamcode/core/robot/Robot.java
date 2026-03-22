@@ -84,6 +84,7 @@ public class Robot extends SubsystemGroup {
 
         PathParser.parse(follower);
         commands.addCommands(PathParser.getPathCommands());
+        setStartingPose(PathParser.getTrueStartPose());
     }
 
     private static class Paths {

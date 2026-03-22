@@ -3,7 +3,7 @@ commands:
     action: on
   - name: path 1
     hold end: false
-    max power: 0.75
+    max power: 1
   - name: wait
     duration: 5000
   - name: intake
