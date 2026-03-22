@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.core;
 
-import com.pedropathing.geometry.Pose;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.core.robot.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
@@ -28,6 +28,8 @@ public class LionsOpMode extends NextFTCOpMode {
     }
 
     private Robot robot;
+
+    private ElapsedTime timer;
 
     private List<Map<String, Object>> commandList;
     private Map<String, CommandFactory> commands;
@@ -73,19 +75,20 @@ public class LionsOpMode extends NextFTCOpMode {
         PathParser.setFilePath(pathsFilePath);
 
         robot = new Aslan(PedroComponent.follower());
-        robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
         robot.initialize();
 
         commandList = (List<Map<String, Object>>) data.get("commands");
         commands = robot.commands.getCommands();
     }
     @Override public void onWaitForStart() {}
-    @Override public void onStartButtonPressed() {}
+    @Override public void onStartButtonPressed() {
+        timer.reset();
+    }
     @Override public void onUpdate() {
         robot.periodic();
         this.telemetry.update();
 
-        if (commandIndex >= commandList.size()) {
+        if (commandIndex >= commandList.size() || timer.seconds() >= 30) {
             this.telemetry.addLine("All commands complete.");
             return;
         }
