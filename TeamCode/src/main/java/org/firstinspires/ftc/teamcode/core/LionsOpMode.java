@@ -29,7 +29,7 @@ public class LionsOpMode extends NextFTCOpMode {
 
     private Robot robot;
 
-    private ElapsedTime timer;
+    private final ElapsedTime timer = new ElapsedTime();
 
     private List<Map<String, Object>> commandList;
     private Map<String, CommandFactory> commands;
