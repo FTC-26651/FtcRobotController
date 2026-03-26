@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.decode.robot.subsystems;
 
 import com.pedropathing.geometry.Pose;
 
-import dev.nextftc.control.ControlSystem;
-import dev.nextftc.control.KineticState;
+import dev.nextftc.control2.feedback.PIDCoefficients;
+import dev.nextftc.control2.feedback.PIDController;
+import dev.nextftc.control2.feedforward.SimpleFFCoefficients;
+import dev.nextftc.control2.feedforward.SimpleFeedforward;
 import dev.nextftc.control2.util.InterpolatingMap;
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.utility.LambdaCommand;
@@ -21,8 +23,12 @@ public class Launcher implements Subsystem {
     private final InterpolatingMap<Double> powers = InterpolatingMap.spline();
     private Pose targetPose = new Pose(0,0, Math.toRadians(0));
 
-    private ControlSystem controller;
+    private PIDController pidController;
+    private SimpleFeedforward feedforward;
 
+    private double currentVelocity = 0;
+    private double targetVelocity = 0;
+    
     double[][] powersData = {
             {0.0, 0.0}
     };
@@ -32,22 +38,18 @@ public class Launcher implements Subsystem {
         return robotPose.distanceFrom(targetPose);
     }
 
-    private void setControllerGoal(double goal) {
-        controller.setGoal(new KineticState(0.0, goal));
-    }
-
     public final Command off = new LambdaCommand()
-            .setUpdate(() -> setControllerGoal(0.0))
+            .setUpdate(() -> targetVelocity = 0.0)
             .requires(this)
             .named("Flywheel Off");
     public final Command on = new LambdaCommand()
-            .setUpdate(() -> setControllerGoal(powers.get(getDistance())))
+            .setUpdate(() -> targetVelocity = powers.get(getDistance()))
             .requires(this)
             .named("Launcher On");
 
     public Command setPower(double power) {
         return new LambdaCommand()
-                .setUpdate(() -> setControllerGoal(power))
+                .setUpdate(() -> targetVelocity = power)
                 .requires(this)
                 .named("Launcher On To Power");
     }
@@ -71,11 +73,8 @@ public class Launcher implements Subsystem {
     public void initialize() {
         motor.setPower(0);
 
-        controller = ControlSystem.builder()
-                .velPid(0.001, 0, 0)
-                .basicFF(0.003, 0.08, 0.00)
-                .build();
-        controller.setGoal(new KineticState(0.0, 0.0));
+        pidController = new PIDController(0.001, 0, 0);
+        feedforward = new SimpleFeedforward(0.003, 0.08, 0.00);
 
         for (double[] data : powersData) {
             powers.putIfAbsent(data[0], data[1]);
@@ -84,9 +83,10 @@ public class Launcher implements Subsystem {
 
     @Override
     public void periodic() {
-        motor.setPower(controller.calculate(new KineticState(
-                motor.getCurrentPosition(),
-                motor.getVelocity()))
+        currentVelocity = motor.getVelocity();
+        motor.setPower(
+                pidController.calculateFromReference(targetVelocity, currentVelocity) +
+                feedforward.calculate(targetVelocity)
         );
     }
 }
