@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.core.robot;
 
-import com.pedropathing.follower.Follower;
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
@@ -17,6 +16,7 @@ import java.util.Objects;
 
 import dev.nextftc.extensions.pedro.FollowPath;
 
+import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 
 public class PathParser {
     private static String filePath = "paths.yaml"; // Default to paths.yaml if nothing else is provided
@@ -78,11 +78,20 @@ public class PathParser {
         }
     }
 
-    public static void parse(Follower follower) {
+    public static void parse() {
         root = yaml.load(filePath);
         List<Map<String, Object>> lines = (List<Map<String, Object>>) root.get("lines");
 
-        trueStartPose = extractStartPose(root);
+        /*
+         * Check to see if the pose has been initialized or not. If it's not been initialized it'll start at 0, 0
+         * We check to see if it is under 1 on both x and y because of floating point errors
+         * and on the off-chance that it got moved a bit before we get to this point in the code
+         */
+        if (follower().getPose().getX() < 1 && follower().getPose().getY() < 1) {
+            trueStartPose = extractStartPose(root);
+        } else {
+            trueStartPose = follower().getPose();
+        }
         startPose = trueStartPose;
 
         assert lines != null;
@@ -97,7 +106,7 @@ public class PathParser {
 
             // Use the command factory to build the paths
             CommandFactory factory = args -> {
-                PathBuilder builder = follower.pathBuilder();
+                PathBuilder builder = follower().pathBuilder();
 
                 assert endPoint != null;
                 endPose = extractPose(endPoint);
@@ -120,8 +129,8 @@ public class PathParser {
 
                 applyHeadingInterpolation(builder, endPoint);
 
-                boolean holdEnd = (boolean) args.getOrDefault("hold end", follower.constants.automaticHoldEnd);
-                double  maxPower = (double) args.getOrDefault("max power", follower.getMaxPowerScaling());
+                boolean holdEnd = (boolean) args.getOrDefault("hold end", follower().constants.automaticHoldEnd);
+                double  maxPower = (double) args.getOrDefault("max power", follower().getMaxPowerScaling());
 
                 return new FollowPath(builder.build(), holdEnd, maxPower);
             };

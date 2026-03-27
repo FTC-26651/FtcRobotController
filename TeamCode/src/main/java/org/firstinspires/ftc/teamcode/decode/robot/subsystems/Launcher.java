@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode.decode.robot.subsystems;
 
 import com.pedropathing.geometry.Pose;
 
-import dev.nextftc.control2.feedback.PIDCoefficients;
 import dev.nextftc.control2.feedback.PIDController;
-import dev.nextftc.control2.feedforward.SimpleFFCoefficients;
 import dev.nextftc.control2.feedforward.SimpleFeedforward;
 import dev.nextftc.control2.util.InterpolatingMap;
 import dev.nextftc.core.commands.Command;

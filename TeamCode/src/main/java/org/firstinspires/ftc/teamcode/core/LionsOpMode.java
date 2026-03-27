@@ -18,6 +18,8 @@ import dev.nextftc.core.commands.Command;
 import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.ftc.NextFTCOpMode;
 
+import static dev.nextftc.extensions.pedro.PedroComponent.follower;
+
 @Autonomous(name = "Lions Autonomous", group = "Autonomous")
 public class LionsOpMode extends NextFTCOpMode {
     {
@@ -74,7 +76,8 @@ public class LionsOpMode extends NextFTCOpMode {
 
         PathParser.setFilePath(pathsFilePath);
 
-        robot = new Aslan(PedroComponent.follower());
+        robot = Aslan.INSTANCE;
+        robot.setAllianceColor(follower().getPose().getX() < 72 ? "blue" : "red");
         robot.initialize();
 
         commandList = (List<Map<String, Object>>) data.get("commands");
