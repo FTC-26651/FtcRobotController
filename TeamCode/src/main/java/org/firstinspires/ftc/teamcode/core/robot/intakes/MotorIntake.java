@@ -2,6 +2,10 @@ package org.firstinspires.ftc.teamcode.core.robot.intakes;
 
 import com.qualcomm.robotcore.hardware.CRServo;
 
+import org.firstinspires.ftc.teamcode.core.robot.Commands;
+
+import java.util.Objects;
+
 import dev.nextftc.control.ControlSystem;
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.utility.LambdaCommand;
@@ -43,6 +47,12 @@ public class MotorIntake implements Subsystem {
     @Override
     public void initialize() {
         motor.setPower(0);
+
+        Commands.addCommands(
+            "intake", args -> useIntake(
+                        ((String) Objects.requireNonNull(args.get("action"))
+            ))
+        );
     }
 
     @Override

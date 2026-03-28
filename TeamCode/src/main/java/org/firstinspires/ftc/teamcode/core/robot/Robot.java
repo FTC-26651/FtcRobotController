@@ -22,7 +22,6 @@ import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 public class Robot extends SubsystemGroup {
     public static final Robot INSTANCE = new Robot();
 
-    public Commands commands = new Commands();
     Follower follower;
 
     protected String allianceColor;
@@ -64,7 +63,7 @@ public class Robot extends SubsystemGroup {
 
     private void addPaths() {
         PathParser.parse();
-        commands.addCommands(PathParser.getPathCommands());
+        Commands.addCommands(PathParser.getPathCommands());
         setStartingPose(PathParser.getTrueStartPose());
     }
 }

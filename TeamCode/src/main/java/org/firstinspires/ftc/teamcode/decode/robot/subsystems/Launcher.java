@@ -12,6 +12,10 @@ import dev.nextftc.hardware.impl.MotorEx;
 
 import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 
+import org.firstinspires.ftc.teamcode.core.robot.Commands;
+
+import java.util.Objects;
+
 public class Launcher implements Subsystem {
     public static final Launcher INSTANCE = new Launcher();
     private Launcher() { }
@@ -69,6 +73,12 @@ public class Launcher implements Subsystem {
 
     @Override
     public void initialize() {
+        Commands.addCommands(
+            "launcher", args -> Launcher.INSTANCE.useLauncher(
+                    ((String) Objects.requireNonNull(args.get("action"))
+            ))
+        );
+
         motor.setPower(0);
 
         pidController = new PIDController(0.001, 0, 0);

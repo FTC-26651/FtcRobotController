@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.core;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.core.robot.Commands;
 import org.firstinspires.ftc.teamcode.core.robot.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
@@ -81,7 +82,7 @@ public class LionsOpMode extends NextFTCOpMode {
         robot.initialize();
 
         commandList = (List<Map<String, Object>>) data.get("commands");
-        commands = robot.commands.getCommands();
+        commands = Commands.getCommands();
     }
     @Override public void onWaitForStart() {}
     @Override public void onStartButtonPressed() {
