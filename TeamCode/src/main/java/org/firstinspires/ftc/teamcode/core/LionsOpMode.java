@@ -11,11 +11,13 @@ import org.firstinspires.ftc.teamcode.decode.robot.Aslan;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.groups.SequentialGroup;
+import dev.nextftc.core.commands.utility.NullCommand;
 import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.ftc.NextFTCOpMode;
 
@@ -26,46 +28,20 @@ public class LionsOpMode extends NextFTCOpMode {
     {
         addComponents(
                 new PedroComponent(Constants::createFollower)
-                // Whatever other components you may desire
-                );
+        );
     }
 
     private Robot robot;
-
     private final ElapsedTime timer = new ElapsedTime();
 
-    private List<Map<String, Object>> commandList;
-    private Map<String, CommandFactory> commands;
-    private int commandIndex = 0;
-    private Command currentCommand = null;
-    boolean commandStarted;
-
     private final String autoFilePath = "test.yaml";
-    private final String pathsFilePath = "paths.yaml";
 
-    // Call this when a command is finished. I can't think of the right name right now
-    private void finishCommand() {
-        commandIndex++;
-        currentCommand = null;
-        commandStarted = false;
-    }
+    private Command allCommands;
 
-    private Command getNextCommand() {
-        Map<String, Object> entry = commandList.get(commandIndex);
-        String name = ((String) Objects.requireNonNull(entry.get("name"))).toLowerCase();
+    boolean isDone = false;
 
-        CommandFactory factory = commands.get(name);
-        if (factory == null) return null;
-
-        return factory.create(entry);
-    }
-
-    private String getNextCommandName() {
-        Map<String, Object> entry = commandList.get(commandIndex);
-        return ((String) Objects.requireNonNull(entry.get("name"))).toLowerCase();
-    }
-
-    @Override public void onInit() {
+    @Override
+    public void onInit() {
         Yaml yaml = new Yaml();
         Map<String, Object> data;
 
@@ -75,46 +51,65 @@ public class LionsOpMode extends NextFTCOpMode {
             throw new RuntimeException(e);
         }
 
+        String pathsFilePath = (String) data.get("Paths File");
         PathParser.setFilePath(pathsFilePath);
 
         robot = Aslan.INSTANCE;
         robot.setAllianceColor(follower().getPose().getX() < 72 ? "blue" : "red");
         robot.initialize();
 
-        commandList = (List<Map<String, Object>>) data.get("commands");
-        commands = Commands.getCommands();
-    }
-    @Override public void onWaitForStart() {}
-    @Override public void onStartButtonPressed() {
-        timer.reset();
-    }
-    @Override public void onUpdate() {
-        robot.periodic();
-        this.telemetry.update();
+        List<Map<String, Object>> commandList = (List<Map<String, Object>>) data.get("commands");
+        Map<String, CommandFactory> commandFactories = Commands.getCommands();
 
-        if (commandIndex >= commandList.size() || timer.seconds() >= 30) {
-            this.telemetry.addLine("All commands complete.");
-            return;
-        }
+        // ---------------------------------------------------------
+        // BUILD ALL COMMANDS HERE
+        // ---------------------------------------------------------
+        ArrayList<Command> builtCommands = new ArrayList<>();
 
-        if (currentCommand == null) {
-            currentCommand = getNextCommand();
+        for (Map<String, Object> entry : commandList) {
+            String name = ((String) entry.get("name")).toLowerCase();
 
-            if (currentCommand == null) {
-                this.telemetry.addLine("Warning: unknown command '" + getNextCommandName() + "', ignoring.");
-                finishCommand();
+            telemetry.addData("Parsing command", name);
+            telemetry.update();
+
+            CommandFactory factory = commandFactories.get(name);
+
+            if (factory == null) {
+                telemetry.addLine("Unknown Command: " + name + ". Adding null command");
+                telemetry.update();
+                
+                builtCommands.add(new NullCommand());
             } else {
-                currentCommand.schedule();
-                commandStarted = true;
-            }
-        } else {
-            currentCommand.update();
-
-            this.telemetry.addLine("Current command: " + currentCommand.name());
-            if (currentCommand.isDone()) {
-                finishCommand();
+                builtCommands.add(factory.create(entry));
             }
         }
+
+        allCommands = new SequentialGroup(
+                builtCommands.toArray(new Command[0])
+        );
     }
-    @Override public void onStop() {}
+
+    @Override
+    public void onWaitForStart() {}
+
+    @Override
+    public void onStartButtonPressed() {
+        timer.reset();
+        allCommands.run();
+    }
+
+    @Override
+    public void onUpdate() {
+        robot.periodic();
+        telemetry.update();
+
+        if (timer.seconds() >= 30 && !isDone) {
+            telemetry.addLine("Out of time, stopping commands");
+            allCommands.stop(true);
+            isDone = true;
+        }
+    }
+
+    @Override
+    public void onStop() {}
 }
