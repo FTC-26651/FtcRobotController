@@ -17,14 +17,16 @@ public class Robot extends SubsystemGroup {
 
     public Robot() {
         super();
-
-        addPaths();
     }
 
     public Robot(Subsystem... subsystems) {
         super(subsystems);
+    }
 
+    @Override
+    public void initialize() {
         addPaths();
+        setAllianceColor(follower().getPose().getX() < 72 ? "blue" : "red");
     }
 
     public void setStartingPose(Pose pose) {
