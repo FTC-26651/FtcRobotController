@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode.core.robot;
 
 import com.pedropathing.geometry.Pose;
-import com.pedropathing.paths.PathChain;
 
-import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.subsystems.Subsystem;
 import dev.nextftc.core.subsystems.SubsystemGroup;
-import dev.nextftc.extensions.pedro.FollowPath;
 
 import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 
