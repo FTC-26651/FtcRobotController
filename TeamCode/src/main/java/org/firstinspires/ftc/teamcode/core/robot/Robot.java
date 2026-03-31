@@ -22,7 +22,6 @@ public class Robot extends SubsystemGroup {
 
     @Override
     public void initialize() {
-        addPaths();
         setAllianceColor(follower().getPose().getX() < 72 ? "blue" : "red");
     }
 
@@ -32,11 +31,5 @@ public class Robot extends SubsystemGroup {
 
     public void setAllianceColor(String color) {
         allianceColor = color;
-    }
-
-    private void addPaths() {
-        PathParser.parse();
-        Commands.addCommands(PathParser.getPathCommands());
-        setStartingPose(PathParser.getTrueStartPose());
     }
 }

@@ -57,8 +57,15 @@ public class LionsOpMode extends NextFTCOpMode {
         String pathsFilePath = (String) data.get("paths file");
         PathParser.setFilePath(pathsFilePath);
 
+        // Parse the paths and add them to the list of commands
+        PathParser.parse();
+        Commands.addCommands(PathParser.getPathCommands());
+
         robot = Aslan.INSTANCE;
         robot.initialize();
+
+        // Set the pose of the robot to whatever was declared in the file
+        robot.setStartingPose(PathParser.getTrueStartPose());
 
         List<Map<String, Object>> commandList = (List<Map<String, Object>>) data.get("commands");
         commandFactories = Commands.getCommands();
