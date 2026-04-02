@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.core.robot;
+package org.firstinspires.ftc.teamcode.core.robot.util;
 
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
@@ -96,7 +96,6 @@ public class PathParser {
 
         assert lines != null;
         for (Map<String, Object> line : lines) {
-
             String id = (String) line.get("id"); // Keep the id in case we want to use the sequence
             String name = (String) line.get("name");
 
