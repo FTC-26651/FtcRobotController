@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.decode.robot.subsystems;
 
 import com.pedropathing.geometry.Pose;
+import com.qualcomm.robotcore.util.Range;
 
 import dev.nextftc.control2.feedback.PIDController;
 import dev.nextftc.control2.feedforward.SimpleFeedforward;
@@ -92,9 +93,11 @@ public class Launcher implements Subsystem {
     @Override
     public void periodic() {
         currentVelocity = motor.getVelocity();
-        motor.setPower(
+        motor.setPower(Range.clip(
                 pidController.calculateFromReference(targetVelocity, currentVelocity) +
-                feedforward.calculate(targetVelocity)
+                feedforward.calculate(targetVelocity),
+                0, 1
+                )
         );
     }
 }
