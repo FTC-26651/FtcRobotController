@@ -22,7 +22,7 @@ public class LauncherTest extends NextFTCOpMode {
     double launcherPower = 0;
 
     @Override public void onInit() {
-        robot = new Aslan(PedroComponent.follower());
+        robot = new Aslan();
         robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
         robot.initialize();
     }

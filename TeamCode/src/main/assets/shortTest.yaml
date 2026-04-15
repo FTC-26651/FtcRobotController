@@ -1,11 +1,10 @@
 paths file: paths.pp
 commands:
-  - name: intake
-    action: on
-  - name: path 1
-    hold end: false
-    max power: 1
-  - name: wait
-    duration: 5000
-  - name: intake
-    action: off
+  - name: sequential group
+    commands:
+      - name: intake
+        action: on
+      - name: wait
+        duration: 5000
+      - name: intake
+        action: off

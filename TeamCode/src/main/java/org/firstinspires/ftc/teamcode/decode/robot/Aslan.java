@@ -20,10 +20,15 @@ public class Aslan extends Robot {
 
     public Aslan() {
         super(
-                Launcher.INSTANCE,
-                MotorIntake.INSTANCE,
-                ServoPusher.INSTANCE
+//                Launcher.INSTANCE,
+                MotorIntake.INSTANCE
         );
+    }
+
+    @Override
+    public void initialize() {
+        super.initialize();
+        setGoal();
     }
 
     private void setGoal() {
@@ -44,11 +49,5 @@ public class Aslan extends Robot {
         )));
 
         turn.schedule();
-    }
-
-    @Override
-    public void initialize() {
-        super.initialize();
-        setGoal();
     }
 }

@@ -33,7 +33,6 @@ public class Commands {
             "wait", args ->
                     new Delay(((Number) args.get("duration")).doubleValue() / 1000
             ),
-
             /*
              * A sequential group is probably the easiest to wrap your head around. It takes in an
              * arbitrary amount of commands as parameters, and runs them one after another, or sequentially

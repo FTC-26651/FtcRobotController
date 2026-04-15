@@ -20,6 +20,7 @@ import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.groups.SequentialGroup;
 import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.ftc.NextFTCOpMode;
+import dev.nextftc.ftc.components.BulkReadComponent;
 
 import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 
@@ -27,6 +28,7 @@ import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 public class LionsOpMode extends NextFTCOpMode {
     {
         addComponents(
+                BulkReadComponent.INSTANCE,
                 new PedroComponent(Constants::createFollower)
                 // Whatever other components your heart may desire
         );
@@ -35,7 +37,7 @@ public class LionsOpMode extends NextFTCOpMode {
     private Robot robot;
     private final ElapsedTime timer = new ElapsedTime();
 
-    private final String autoFilePath = "test.yaml";
+    private final String autoFilePath = "shortTest.yaml";
 
     private Command allCommands;
     Map<String, CommandFactory> commandFactories;
@@ -53,9 +55,15 @@ public class LionsOpMode extends NextFTCOpMode {
             throw new RuntimeException(e);
         }
 
+        String pathsFileName;
+
         // Code to grab the file containing the paths from the yaml
-        String pathsFilePath = (String) data.get("paths file");
-        PathParser.setFilePath(pathsFilePath);
+        try {
+            pathsFileName = data.get("paths file").toString();
+        } catch (NullPointerException e) {
+            pathsFileName = "";
+        }
+        PathParser.setFilePath(pathsFileName);
 
         // Parse the paths and add them to the list of commands
         PathParser.parse();
@@ -89,6 +97,9 @@ public class LionsOpMode extends NextFTCOpMode {
         allCommands = new SequentialGroup(
                 builtCommands.toArray(new Command[0])
         );
+
+        telemetry.addData("All Commands", allCommands);
+        telemetry.update();
     }
 
     @Override
@@ -106,6 +117,8 @@ public class LionsOpMode extends NextFTCOpMode {
 
     @Override
     public void onUpdate() {
+        allCommands.update();
+
         robot.periodic();
         telemetry.update();
 
@@ -117,6 +130,10 @@ public class LionsOpMode extends NextFTCOpMode {
             telemetry.addLine("Out of time, stopping commands");
             allCommands.stop(true);
             isDone = true;
+        }
+
+        if (allCommands.isDone()) {
+            telemetry.addLine("All commands done");
         }
     }
 

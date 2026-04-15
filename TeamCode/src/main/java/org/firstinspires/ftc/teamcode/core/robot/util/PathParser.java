@@ -8,6 +8,7 @@ import com.pedropathing.paths.PathBuilder;
 import org.firstinspires.ftc.teamcode.core.CommandFactory;
 import org.yaml.snakeyaml.Yaml;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +16,12 @@ import java.util.Map;
 import java.util.Objects;
 
 import dev.nextftc.extensions.pedro.FollowPath;
+import dev.nextftc.ftc.ActiveOpMode;
 
 import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 
 public class PathParser {
-    private static String filePath = "paths.yaml"; // Default to paths.yaml if nothing else is provided
+    private static String filePath = "paths.pp"; // Default to paths.pp if nothing else is provided
     private static final Yaml yaml = new Yaml();
 
     private static Map<String, Object> root;
@@ -79,7 +81,11 @@ public class PathParser {
     }
 
     public static void parse() {
-        root = yaml.load(filePath);
+        try {
+            root = yaml.load(ActiveOpMode.hardwareMap().appContext.getAssets().open(filePath));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         List<Map<String, Object>> lines = (List<Map<String, Object>>) root.get("lines");
 
         /*
@@ -96,8 +102,8 @@ public class PathParser {
 
         assert lines != null;
         for (Map<String, Object> line : lines) {
-            String id = (String) line.get("id"); // Keep the id in case we want to use the sequence
-            String name = (String) line.get("name");
+            String id = line.get("id").toString(); // Keep the id in case we want to use the sequence
+            String name = line.get("name").toString().toLowerCase();
 
             Map<String, Object> endPoint = (Map<String, Object>) line.get("endPoint");
             List<Map<String, Object>> controlPoints =
