@@ -18,6 +18,7 @@ import java.util.Map;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.groups.SequentialGroup;
+import dev.nextftc.core.components.SubsystemComponent;
 import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.ftc.NextFTCOpMode;
 import dev.nextftc.ftc.components.BulkReadComponent;
@@ -29,7 +30,8 @@ public class LionsOpMode extends NextFTCOpMode {
     {
         addComponents(
                 BulkReadComponent.INSTANCE,
-                new PedroComponent(Constants::createFollower)
+                new PedroComponent(Constants::createFollower),
+                new SubsystemComponent(Aslan.INSTANCE)
                 // Whatever other components your heart may desire
         );
     }
@@ -70,7 +72,7 @@ public class LionsOpMode extends NextFTCOpMode {
         Commands.addCommands(PathParser.getPathCommands());
 
         robot = Aslan.INSTANCE;
-        robot.initialize();
+        robot.init();
 
         // Set the pose of the robot to whatever was declared in the file
         robot.setStartingPose(PathParser.getTrueStartPose());

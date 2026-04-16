@@ -25,20 +25,21 @@ public class Aslan extends Robot {
         );
     }
 
-    @Override
-    public void initialize() {
-        super.initialize();
+    public void init() {
+        super.init();
         setGoal();
     }
 
     private void setGoal() {
-        switch (super.allianceColor) {
-            case "blue":
-                goal = new Pose(12, 135);
-                break;
-            case "red":
-                goal = new Pose(132, 135);
-                break;
+        if (super.allianceColor != null) {
+            switch (super.allianceColor) {
+                case "blue":
+                    goal = new Pose(12, 135);
+                    break;
+                case "red":
+                    goal = new Pose(132, 135);
+                    break;
+            }
         }
     }
 

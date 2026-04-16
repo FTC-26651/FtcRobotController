@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.robot.intakes;
 
+import com.bylazar.telemetry.PanelsTelemetry;
+import com.bylazar.telemetry.TelemetryManager;
 import com.qualcomm.robotcore.hardware.CRServo;
 
 import org.firstinspires.ftc.teamcode.core.robot.Commands;

@@ -8,20 +8,13 @@ import dev.nextftc.core.subsystems.SubsystemGroup;
 import static dev.nextftc.extensions.pedro.PedroComponent.follower;
 
 public class Robot extends SubsystemGroup {
-    public static final Robot INSTANCE = new Robot();
-
     protected String allianceColor;
-
-    public Robot() {
-        super();
-    }
 
     public Robot(Subsystem... subsystems) {
         super(subsystems);
     }
 
-    @Override
-    public void initialize() {
+    public void init() {
         setAllianceColor(follower().getPose().getX() < 72 ? "blue" : "red");
     }
 
