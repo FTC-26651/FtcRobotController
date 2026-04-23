@@ -1,47 +1,39 @@
 package org.firstinspires.ftc.teamcode.core.robot.intakes;
 
-import com.bylazar.telemetry.PanelsTelemetry;
-import com.bylazar.telemetry.TelemetryManager;
-import com.qualcomm.robotcore.hardware.CRServo;
 
-import org.firstinspires.ftc.teamcode.core.robot.Commands;
+import android.widget.Switch;
 
-import java.util.Objects;
+import org.firstinspires.ftc.teamcode.core.interpreter.CommandFactory;
+import org.firstinspires.ftc.teamcode.core.interpreter.CommandRegistry;
 
-import dev.nextftc.control.ControlSystem;
 import dev.nextftc.core.commands.Command;
+import dev.nextftc.core.commands.utility.InstantCommand;
 import dev.nextftc.core.commands.utility.LambdaCommand;
 import dev.nextftc.core.subsystems.Subsystem;
-import dev.nextftc.ftc.ActiveOpMode;
-import dev.nextftc.hardware.controllable.RunToVelocity;
 import dev.nextftc.hardware.impl.MotorEx;
 
 public class MotorIntake implements Subsystem {
     public static final MotorIntake INSTANCE = new MotorIntake();
-    private MotorIntake() { }
-
-    double motorPower;
+    private MotorIntake() {
+        CommandRegistry.INSTANCE.addCommandObject(MotorIntake.INSTANCE);
+    }
 
     private final MotorEx motor = new MotorEx("intake_motor");
 
-//    private final ControlSystem controller = ControlSystem.builder()
-//            .velPid(0.005, 0, 0)
-//            .basicFF(0.01, 0.02, 0.03)
-//            .build();
+    public final Command off = new InstantCommand(() -> motor.setPower(0)).requires(this).named("Transfer Off");
+    public final Command forward = new InstantCommand(() -> motor.setPower(-1)).requires(this).named("Transfer Forward");
+    public final Command reverse = new InstantCommand(() -> motor.setPower(1)).requires(this).named("Transfer Back");
 
-    public final Command off = new LambdaCommand().setUpdate(() -> motor.setPower(0)).requires(this).named("Transfer Off");
-    public final Command forward = new LambdaCommand().setStart(() -> motor.setPower(-1)).requires(this).named("Transfer Forward");
-    public final Command reverse = new LambdaCommand().setUpdate(() -> motor.setPower(1)).requires(this).named("Transfer Back");
-
+    @CommandFactory("use intake")
     public Command useIntake(String action) {
         return new LambdaCommand().setStart(() -> {
-           switch (action) {
-               case "forward":
-                   forward.schedule();
-               case "reverse":
-                   reverse.schedule();
-               case "off":
-                   off.schedule();
+            switch (action) {
+                case "forward":
+                    forward.schedule();
+                case "reverse":
+                    reverse.schedule();
+                case "off":
+                    off.schedule();
            }
         });
     }
@@ -49,12 +41,6 @@ public class MotorIntake implements Subsystem {
     @Override
     public void initialize() {
         motor.setPower(0);
-
-        Commands.addCommands(
-            "intake", args -> useIntake(
-                        ((String) Objects.requireNonNull(args.get("action"))
-            ))
-        );
     }
 
     @Override

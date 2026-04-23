@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.decode.robot.subsystems.Launcher;
 import dev.nextftc.extensions.pedro.PedroComponent;
 import dev.nextftc.ftc.Gamepads;
 import dev.nextftc.ftc.NextFTCOpMode;
+import dev.nextftc.hardware.impl.MotorEx;
 
 @TeleOp(name = "Launcher Test", group = "Tests")
 public class LauncherTest extends NextFTCOpMode {
@@ -18,27 +19,33 @@ public class LauncherTest extends NextFTCOpMode {
         addComponents(new PedroComponent(Constants::createFollower));
     }
 
-    private Robot robot;
-    double launcherPower = 0;
+    private final MotorEx motor = new MotorEx("flywheel_motor");
+    private final MotorEx motor2 = new MotorEx("intake_motor");
+
+//    private Robot robot;
+//    double launcherPower = 0;
 
     @Override public void onInit() {
-        robot = new Aslan();
-        robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
-        robot.initialize();
+
+//        robot = new Aslan();
+//        robot.setStartingPose(new Pose(56, 8, Math.toRadians(90)));
+//        robot.initialize();
     }
     @Override public void onWaitForStart() { }
     @Override public void onStartButtonPressed() { }
     @Override public void onUpdate() {
-        if (Gamepads.gamepad1().dpadUp().toggleOnBecomesTrue().get()) {
-            launcherPower += 100.0;
-        } else if (Gamepads.gamepad1().dpadDown().toggleOnBecomesTrue().get()) {
-            launcherPower -= 100.0;
-        }
-        Launcher.INSTANCE.setPower(launcherPower);
-        robot.periodic();
-
-        telemetry.addData("Current Power", launcherPower);
-        telemetry.update();
+//        if (Gamepads.gamepad1().dpadUp().toggleOnBecomesTrue().get()) {
+//            launcherPower += 100.0;
+//        } else if (Gamepads.gamepad1().dpadDown().toggleOnBecomesTrue().get()) {
+//            launcherPower -= 100.0;
+//        }
+//        Launcher.INSTANCE.setPower(launcherPower);
+//        robot.periodic();
+//
+//        telemetry.addData("Current Power", launcherPower);
+//        telemetry.update();
+        motor.setPower(1);
+        motor2.setPower(-1);
     }
     @Override public void onStop() { }
 }

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.core;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.core.robot.Commands;
+import org.firstinspires.ftc.teamcode.core.interpreter.CommandBuilder;
 import org.firstinspires.ftc.teamcode.core.robot.util.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.RobotConstants;
@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.commands.groups.SequentialGroup;
@@ -42,7 +43,6 @@ public class LionsOpMode extends NextFTCOpMode {
     private final String autoFilePath = "shortTest.yaml";
 
     private Command allCommands;
-    Map<String, CommandFactory> commandFactories;
 
     boolean isDone = false;
 
@@ -61,7 +61,7 @@ public class LionsOpMode extends NextFTCOpMode {
 
         // Code to grab the file containing the paths from the yaml
         try {
-            pathsFileName = data.get("paths file").toString();
+            pathsFileName = Objects.requireNonNull(data.get("paths file")).toString();
         } catch (NullPointerException e) {
             pathsFileName = "";
         }
@@ -69,7 +69,7 @@ public class LionsOpMode extends NextFTCOpMode {
 
         // Parse the paths and add them to the list of commands
         PathParser.parse();
-        Commands.addCommands(PathParser.getPathCommands());
+        PathParser.getPathCommands();
 
         robot = Aslan.INSTANCE;
         robot.init();
@@ -77,15 +77,19 @@ public class LionsOpMode extends NextFTCOpMode {
         // Set the pose of the robot to whatever was declared in the file
         robot.setStartingPose(PathParser.getTrueStartPose());
 
-        List<Map<String, Object>> commandList = (List<Map<String, Object>>) data.get("commands");
-        commandFactories = Commands.getCommands();
+        List<Map<String, Object>> commandList;
+        try {
+            commandList = Objects.requireNonNull((List<Map<String, Object>>) data.get("commands"));
+        } catch (Exception e) {
+            throw new RuntimeException("Commands are null");
+        }
 
         // ---------------------------------------------------------
         // BUILD ALL COMMANDS
         // ---------------------------------------------------------
         ArrayList<Command> builtCommands = new ArrayList<>();
 
-        if (commandList == null) {
+        if (commandList.isEmpty()) {
             telemetry.addLine("No commands found");
             telemetry.update();
         } else {

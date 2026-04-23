@@ -5,7 +5,7 @@ import com.pedropathing.geometry.BezierLine;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathBuilder;
 
-import org.firstinspires.ftc.teamcode.core.CommandFactory;
+import org.firstinspires.ftc.teamcode.core.interpreter.CommandFactory;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
