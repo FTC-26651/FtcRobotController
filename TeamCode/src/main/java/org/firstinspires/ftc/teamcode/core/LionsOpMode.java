@@ -69,7 +69,6 @@ public class LionsOpMode extends NextFTCOpMode {
 
         // Parse the paths and add them to the list of commands
         PathParser.parse();
-        PathParser.getPathCommands();
 
         robot = Aslan.INSTANCE;
         robot.init();

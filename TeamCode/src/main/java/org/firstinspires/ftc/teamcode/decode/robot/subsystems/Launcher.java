@@ -30,7 +30,6 @@ public class Launcher implements Subsystem {
     private PIDController pidController;
     private SimpleFeedforward feedforward;
 
-    private double currentVelocity = 0;
     private double targetVelocity = 0;
     
     double[][] powersData = {
@@ -88,9 +87,8 @@ public class Launcher implements Subsystem {
 
     @Override
     public void periodic() {
-        currentVelocity = motor.getVelocity();
         motor.setPower(Range.clip(
-                pidController.calculateFromReference(targetVelocity, currentVelocity) +
+                pidController.calculateFromReference(targetVelocity, motor.getVelocity()) +
                 feedforward.calculate(targetVelocity),
                 0, 1
                 )

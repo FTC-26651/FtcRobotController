@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.core.interpreter;
 
 import org.firstinspires.ftc.teamcode.core.robot.CoreCommandDefinitions;
+import org.firstinspires.ftc.teamcode.core.robot.util.PathParser;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class CommandRegistry implements Subsystem {
     public CommandRegistry() {
         commandObjects.add(new CoreCommandDefinitions());
         register(new CoreCommandDefinitions());
+        register(PathParser.class);
     }
 
     public void addCommandObject(Object o) {

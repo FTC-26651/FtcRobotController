@@ -2,8 +2,10 @@ package org.firstinspires.ftc.teamcode.core.robot.util;
 
 import com.pedropathing.geometry.BezierCurve;
 import com.pedropathing.geometry.BezierLine;
+import com.pedropathing.geometry.CoordinateSystem;
 import com.pedropathing.geometry.Pose;
 import com.pedropathing.paths.PathBuilder;
+import com.pedropathing.paths.PathChain;
 
 import org.firstinspires.ftc.teamcode.core.interpreter.CommandFactory;
 import org.yaml.snakeyaml.Yaml;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import dev.nextftc.core.commands.Command;
 import dev.nextftc.extensions.pedro.FollowPath;
 import dev.nextftc.ftc.ActiveOpMode;
 
@@ -28,9 +31,9 @@ public class PathParser {
 
     private static final Map<String, CommandFactory> pathCommands = new HashMap<>();
 
-    private static Pose startPose;
-    private static Pose endPose;
     private static Pose trueStartPose;
+
+    static Map<String, PathChain> paths = new HashMap<>();
 
     private static Pose extractPose(Map<String, Object> map) {
         double x = ((Number) Objects.requireNonNull(map.get("x"))).doubleValue();
@@ -98,59 +101,89 @@ public class PathParser {
         } else {
             trueStartPose = follower().getPose();
         }
-        startPose = trueStartPose;
+
+        Pose startPose = trueStartPose;
 
         assert lines != null;
         for (Map<String, Object> line : lines) {
-            String id = line.get("id").toString(); // Keep the id in case we want to use the sequence
             String name = line.get("name").toString().toLowerCase();
+
+            PathBuilder builder = follower().pathBuilder();
 
             Map<String, Object> endPoint = (Map<String, Object>) line.get("endPoint");
             List<Map<String, Object>> controlPoints =
                     (List<Map<String, Object>>) line.get("controlPoints");
 
-            // Use the command factory to build the paths
-            CommandFactory factory = args -> {
-                PathBuilder builder = follower().pathBuilder();
+            assert endPoint != null;
+            Pose endPose = extractPose(endPoint);
 
-                assert endPoint != null;
-                endPose = extractPose(endPoint);
+            assert controlPoints != null;
+            if (controlPoints.isEmpty()) {
+                builder.addPath(new BezierLine(startPose, endPose));
+            } else {
+                List<Pose> poses = new ArrayList<>();
+                poses.add(startPose);
 
-                // If there are no control points, we use a BezierLine. Otherwise we use a Bezier Curve
-                assert controlPoints != null;
-                if (controlPoints.isEmpty()) {
-                    builder.addPath(new BezierLine(startPose, endPose));
-                } else {
-                    List<Pose> poses = new ArrayList<>();
-
-                    poses.add(startPose);
-                    for (Map<String, Object> controlPoint : controlPoints) {
-                        poses.add(extractPose(controlPoint));
-                    }
-                    poses.add(endPose);
-
-                    builder.addPath(new BezierCurve(poses.toArray(new Pose[0])));
+                for (Map<String, Object> cp : controlPoints) {
+                    poses.add(extractPose(cp));
                 }
 
-                applyHeadingInterpolation(builder, endPoint);
+                poses.add(endPose);
+                builder.addPath(new BezierCurve(poses.toArray(new Pose[0])));
+            }
 
-                boolean holdEnd = (boolean) args.getOrDefault("hold end", follower().constants.automaticHoldEnd);
-                double  maxPower = (double) args.getOrDefault("max power", follower().getMaxPowerScaling());
+            applyHeadingInterpolation(builder, endPoint);
 
-                return new FollowPath(builder.build(), holdEnd, maxPower);
-            };
+            paths.put(name, builder.build());
 
-            pathCommands.put(name, factory);
             startPose = endPose;
         }
     }
 
-    public static void setFilePath(String path) {
-        filePath = path;
+    @CommandFactory("follow")
+    public static Command followPath(String name, boolean holdEnd, double maxPower) {
+        PathChain path = paths.get(name);
+
+        if (path == null) {
+            throw new RuntimeException("Unknown path: " + name);
+        }
+
+        return new FollowPath(
+                path,
+                holdEnd,
+                maxPower
+        );
     }
 
-    public static Map<String, CommandFactory> getPathCommands() {
-        return pathCommands;
+    @CommandFactory("follow")
+    public static Command followPath(String name, boolean holdEnd) {
+        PathChain path = paths.get(name);
+
+        if (path == null) {
+            throw new RuntimeException("Unknown path: " + name);
+        }
+
+        return new FollowPath(
+                path,
+                holdEnd
+        );
+    }
+
+    @CommandFactory("follow")
+    public static Command followPath(String name) {
+        PathChain path = paths.get(name);
+
+        if (path == null) {
+            throw new RuntimeException("Unknown path: " + name);
+        }
+
+        return new FollowPath(
+                path
+        );
+    }
+
+    public static void setFilePath(String path) {
+        filePath = path;
     }
 
     public static Pose getTrueStartPose() {
