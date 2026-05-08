@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.core.interpreter.CommandBuilder;
 import org.firstinspires.ftc.teamcode.core.interpreter.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
-import org.firstinspires.ftc.teamcode.core.robot.RobotConstants;
+import org.firstinspires.ftc.teamcode.core.robot.PoseStorage;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;
 import org.firstinspires.ftc.teamcode.decode.robot.Aslan;
 import org.yaml.snakeyaml.Yaml;
@@ -128,7 +128,7 @@ public class LionsOpMode extends NextFTCOpMode {
         telemetry.update();
 
         // Save the robot's position every cycle so that we can use it in teleop
-        RobotConstants.setRobotPose(follower().getPose());
+        PoseStorage.setRobotPose(follower().getPose());
 
         // If we are out of time, stop the auto. Don't want to accidentally go past time
         if (timer.seconds() >= 30 && !isDone) {
@@ -144,6 +144,6 @@ public class LionsOpMode extends NextFTCOpMode {
 
     @Override
     public void onStop() {
-        RobotConstants.setRobotPose(follower().getPose());
+        PoseStorage.setRobotPose(follower().getPose());
     }
 }

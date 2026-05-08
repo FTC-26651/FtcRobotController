@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.core.robot;
 
 import com.pedropathing.geometry.Pose;
 
-public class RobotConstants {
+public class PoseStorage {
     public static Pose robotPose;
 
     public static void setRobotPose(Pose pose) {
