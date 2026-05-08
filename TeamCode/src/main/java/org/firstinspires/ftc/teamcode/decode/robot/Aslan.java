@@ -3,9 +3,7 @@ package org.firstinspires.ftc.teamcode.decode.robot;
 import com.pedropathing.geometry.Pose;
 
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
-import org.firstinspires.ftc.teamcode.core.robot.intakes.MotorIntake;
-import org.firstinspires.ftc.teamcode.core.robot.transfers.pushers.ServoPusher;
-import org.firstinspires.ftc.teamcode.decode.robot.subsystems.Launcher;
+import org.firstinspires.ftc.teamcode.decode.robot.subsystems.MotorIntake;
 
 import dev.nextftc.core.commands.Command;
 import dev.nextftc.core.units.Angle;

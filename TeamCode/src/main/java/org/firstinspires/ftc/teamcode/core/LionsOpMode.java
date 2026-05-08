@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.core.interpreter.CommandBuilder;
-import org.firstinspires.ftc.teamcode.core.robot.util.PathParser;
+import org.firstinspires.ftc.teamcode.core.interpreter.PathParser;
 import org.firstinspires.ftc.teamcode.core.robot.Robot;
 import org.firstinspires.ftc.teamcode.core.robot.RobotConstants;
 import org.firstinspires.ftc.teamcode.core.robot.drivetrain.Constants;

@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.core.interpreter;
 
 import org.firstinspires.ftc.teamcode.core.robot.CoreCommandDefinitions;
-import org.firstinspires.ftc.teamcode.core.robot.util.PathParser;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

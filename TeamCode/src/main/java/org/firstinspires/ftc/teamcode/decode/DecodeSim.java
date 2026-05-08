@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+// @Disabled
 @TeleOp(name = "I stole this code", group = "A-Test")
 public class DecodeSim extends OpMode {
 
